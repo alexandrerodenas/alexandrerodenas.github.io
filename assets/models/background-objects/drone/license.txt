@@ -1,0 +1,11 @@
+Model Information:
+* title:	Futuristic Surveillance Drone
+* source:	https://sketchfab.com/3d-models/futuristic-surveillance-drone-148d8e0ca26c4c5d81375496f4266685
+* author:	Glowbox 3D (https://sketchfab.com/ra3id)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Futuristic Surveillance Drone" (https://sketchfab.com/3d-models/futuristic-surveillance-drone-148d8e0ca26c4c5d81375496f4266685) by Glowbox 3D (https://sketchfab.com/ra3id) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

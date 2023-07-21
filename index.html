@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Endless runner</title>
+    
+  <script type="module" crossorigin src="/assets/index-024ba14d.js"></script>
+  <link rel="stylesheet" href="/assets/index-dfe7e05e.css">
+</head>
+<body class="container">
+<video
+        id="video-background"
+        loop
+        crossOrigin="anonymous"
+        playsinline
+        style="display:none">
+    <source src="/assets/background-video/city_loop.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+</video>
+<div id="damage-indicator">
+    <div class="damage-indicator--top"></div>
+    <div class="damage-indicator--right"></div>
+    <div class="damage-indicator--bottom"></div>
+    <div class="damage-indicator--left"></div>
+</div>
+
+<div class="health-container" id="health-container"></div>
+<div class="stats" id="stats"></div>
+<div class="score">
+    <img class="score-overlay"  src="/assets/ihm/overlays/counter.png"></img>
+    <label class="score-label" id="score"></label>
+</div>
+<div class="controllers">
+    <svg id="keyboard-controller" fill="currentColor" width="800px" height="800px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1807.059 1637.706c0 31.059-25.299 56.47-56.47 56.47H169.411c-31.172 0-56.47-25.411-56.47-56.47v-903.53c0-31.058 25.298-56.47 56.47-56.47h1581.176c31.172 0 56.47 25.412 56.47 56.47v903.53Zm-56.47-1072.941h-729.262c14.908-86.965 65.958-113.506 133.384-147.163 89.336-44.611 200.583-100.291 200.583-304.602h-112.941c0 134.513-57.939 163.426-138.24 203.633-80.301 40.094-177.544 90.24-196.518 248.132H169.412C76.009 564.765 0 640.775 0 734.176v903.53c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412v-903.53c0-93.402-76.01-169.411-169.412-169.411Zm-564.707 677.647H734.118c-31.172 0-56.47 25.299-56.47 56.47v112.942c0 31.171 25.298 56.47 56.47 56.47h451.764c31.172 0 56.47-25.299 56.47-56.47v-112.942c0-31.171-25.298-56.47-56.47-56.47m338.824 0h-112.941c-31.172 0-56.47 25.299-56.47 56.47v112.942c0 31.171 25.298 56.47 56.47 56.47h112.94c31.173 0 56.471-25.299 56.471-56.47v-112.942c0-31.171-25.298-56.47-56.47-56.47m-1016.47 0H395.293c-31.172 0-56.47 25.299-56.47 56.47v112.942c0 31.171 25.298 56.47 56.47 56.47h112.941c31.172 0 56.47-25.299 56.47-56.47v-112.942c0-31.171-25.298-56.47-56.47-56.47m0-338.824h-112.94c-31.173 0-56.471 25.3-56.471 56.47V1073c0 31.172 25.298 56.47 56.47 56.47h112.941c31.172 0 56.47-25.298 56.47-56.47V960.059c0-31.172-25.298-56.47-56.47-56.47m225.883 225.882h112.94c31.173 0 56.471-25.3 56.471-56.471V960.059c0-31.172-25.298-56.47-56.47-56.47h-112.94c-31.172 0-56.47 25.298-56.47 56.47V1073c0 31.172 25.298 56.47 56.47 56.47m451.764-225.882h-112.94c-31.173 0-56.471 25.3-56.471 56.47V1073c0 31.172 25.298 56.47 56.47 56.47h112.941c31.172 0 56.47-25.298 56.47-56.47V960.059c0-31.172-25.298-56.47-56.47-56.47m338.824 0h-112.941c-31.172 0-56.47 25.298-56.47 56.47V1073c0 31.172 25.298 56.47 56.47 56.47h112.94c31.173 0 56.471-25.298 56.471-56.47V960.059c0-31.172-25.298-56.47-56.47-56.47" fill-rule="evenodd"/>
+    </svg>
+    <svg viewBox="0 0 24 24" id="server-controller" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><defs><style>.cls-1{fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:1.91px;}</style></defs><rect class="cls-1" x="1.5" y="9.14" width="21" height="13.36" rx="1.91"></rect><circle class="cls-1" cx="6.27" cy="16.77" r="0.95"></circle><line class="cls-1" x1="6.27" y1="16.77" x2="6.27" y2="12"></line><circle class="cls-1" cx="17.73" cy="16.77" r="0.95"></circle><line class="cls-1" x1="17.73" y1="16.77" x2="17.73" y2="12"></line><line class="cls-1" x1="9.14" y1="19.64" x2="11.05" y2="19.64"></line><line class="cls-1" x1="12.95" y1="19.64" x2="14.86" y2="19.64"></line><polygon class="cls-1" points="13.91 12.96 10.09 12.96 9.14 9.14 14.86 9.14 13.91 12.96"></polygon><line class="cls-1" x1="12" y1="7.23" x2="12" y2="9.14"></line><path class="cls-1" d="M9.3,6.22a3.82,3.82,0,0,1,5.4,0"></path><path class="cls-1" d="M6.75,3.67a7.44,7.44,0,0,1,10.5,0"></path></g></svg>
+</div>
+<canvas id="app"></canvas>
+
+</body>
+</html>
