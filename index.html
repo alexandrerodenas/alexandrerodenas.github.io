@@ -3,18 +3,30 @@
 <head>
     <meta charset="utf-8">
     <title>Endless runner</title>
+    <link rel="icon" href="data:,">
     
-  <script type="module" crossorigin src="/assets/index-024ba14d.js"></script>
-  <link rel="stylesheet" href="/assets/index-dfe7e05e.css">
+  <script type="module" crossorigin src="/assets/index-6a472aaf.js"></script>
+  <link rel="stylesheet" href="/assets/index-31f02b0a.css">
 </head>
 <body class="container">
+
+<div id="loading-screen" class="centered">
+    <div>
+        <h1 class="loading-screen-message">Chargement</h1>
+    </div>
+    <div class="progress-bar-container">
+        <div id="loading-progress-bar" class="progress-bar-filled" style="width: 0%"></div>
+    </div>
+</div>
+
 <video
         id="video-background"
         loop
         crossOrigin="anonymous"
         playsinline
-        style="display:none">
-    <source src="/assets/background-video/city_loop.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        muted
+        style="display: none">
+    <source id="video-source" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
 </video>
 <div id="damage-indicator">
     <div class="damage-indicator--top"></div>
@@ -23,11 +35,19 @@
     <div class="damage-indicator--left"></div>
 </div>
 
+<div id="game-over-screen-container">
+    <div class="centered">
+        <h1 class="gameover-message">Game Over</h1>
+        <h6 class="game-over-screen-message" id="game-over-screen-message"></h6>
+        <h6 class="replay-message" id="replay-message">Appuyez sur une touche pour rejouer</h6>
+    </div>
+</div>
+
 <div class="health-container" id="health-container"></div>
 <div class="stats" id="stats"></div>
-<div class="score">
+<div class="score" id="score-container">
     <img class="score-overlay"  src="/assets/ihm/overlays/counter.png"></img>
-    <label class="score-label" id="score"></label>
+    <label class="score-label" id="score-label"></label>
 </div>
 <div class="controllers">
     <svg id="keyboard-controller" fill="currentColor" width="800px" height="800px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">

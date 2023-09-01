@@ -1,11 +1,1 @@
-Model Information:
-* title:	XYZ Daily. Day 4. Hoverboard
-* source:	https://sketchfab.com/3d-models/xyz-daily-day-4-hoverboard-e34bc891297145f181a66595b478e55b
-* author:	Olyona Kuznetsova (https://sketchfab.com/olyona.kuznetsova)
-
-Model License:
-* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-* requirements:	Author must be credited. Commercial use is allowed.
-
-If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "XYZ Daily. Day 4. Hoverboard" (https://sketchfab.com/3d-models/xyz-daily-day-4-hoverboard-e34bc891297145f181a66595b478e55b) by Olyona Kuznetsova (https://sketchfab.com/olyona.kuznetsova) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+"Pegasus Hoverboard" (https://skfb.ly/o6tYK) by JadedDesign is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
