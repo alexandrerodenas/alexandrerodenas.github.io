@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nom Prénom - Projets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="flex justify-between items-center p-6 border-b border-gray-700">
+      <h1 class="text-2xl font-bold">Nom Prénom</h1>
+      <a href="https://www.linkedin.com/in/ton-linkedin" target="_blank" class="text-blue-400 hover:underline">
+        LinkedIn
+      </a>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="flex-1 p-6">
+      <h2 class="text-xl mb-4 font-semibold">Mes dossiers</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+
+        <!-- Exemple de dossier -->
+        <button onclick="showFolder('mentorat')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+          </svg>
+          <span>Mentorat</span>
+        </button>
+
+        <button onclick="showFolder('setup')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg class="h-12 w-12 mb-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+          <span>Setup Env</span>
+        </button>
+
+        <button onclick="showFolder('kata')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg class="h-12 w-12 mb-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+          <span>Kata</span>
+        </button>
+
+        <button onclick="showFolder('entretiens')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg class="h-12 w-12 mb-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+          <span>Entretiens</span>
+        </button>
+
+        <button onclick="showFolder('bourse')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg class="h-12 w-12 mb-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+          <span>Bourse</span>
+        </button>
+
+        <button onclick="showFolder('photo')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+          <svg class="h-12 w-12 mb-2 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h2a2 2 0 012 2v0a2 2 0 002-2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/>
+          </svg>
+          <span>Photos</span>
+        </button>
+
+      </div>
+
+      <!-- Mosaique projets -->
+      <div id="projects" class="mt-8 hidden">
+        <h3 class="text-lg font-semibold mb-4">Projets</h3>
+        <div id="project-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Les projets seront injectés ici en JS -->
+        </div>
+        <button onclick="hideFolder()" class="mt-4 text-sm text-blue-400 hover:underline">← Retour aux dossiers</button>
+      </div>
+    </main>
+
+    <script>
+      const allProjects = {
+        mentorat: [
+          { title: "Projet Mentor 1", description: "Description rapide", url: "https://github.com/..." },
+          { title: "Projet Mentor 2", description: "Autre description", url: "https://github.com/..." },
+        ],
+        setup: [
+          { title: "Dotfiles", description: "Mes configurations perso", url: "https://github.com/..." },
+        ],
+        kata: [
+          { title: "Kata FizzBuzz", description: "Implémentation FizzBuzz", url: "https://github.com/..." },
+        ],
+        entretiens: [
+          { title: "Algo Sorting", description: "Exos d'entretien", url: "https://github.com/..." },
+        ],
+        bourse: [
+          { title: "Simulateur Bourse", description: "Projet perso", url: "https://github.com/..." },
+        ],
+        photo: [
+          { title: "Portfolio Photo", description: "Photos perso", url: "https://github.com/..." },
+        ],
+      };
+
+      function showFolder(folder) {
+        const list = document.getElementById('project-list');
+        list.innerHTML = '';
+        allProjects[folder].forEach(project => {
+          const div = document.createElement('a');
+          div.href = project.url;
+          div.target = "_blank";
+          div.className = "block bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition";
+          div.innerHTML = `<h4 class="font-semibold mb-2">${project.title}</h4><p class="text-sm text-gray-400">${project.description}</p>`;
+          list.appendChild(div);
+        });
+        document.getElementById('projects').classList.remove('hidden');
+      }
+
+      function hideFolder() {
+        document.getElementById('projects').classList.add('hidden');
+      }
+    </script>
+  </body>
+</html>
