@@ -97,8 +97,17 @@
           { title: "Portfolio backend", description: "Simulateur boursier en Python", url: "https://github.com/alexandrerodenas/bourse" },
         ],
         photo: [
-          { title: "PicsortV2", description: "Classification d’images via model CNN", url: "picsort-v2/" },
-          { title: "LLM4Picture", description: "Classification d’images via LLM", url: "https://github.com/alexandrerodenas/llm4picture" },
+          {
+            title: "PicsortV2",
+            description: "Classification d’images via model CNN",
+            url: "https://github.com/alexandrerodenas/picsort-v2",
+            preview: "picsort-v2/"
+          },
+          {
+            title: "LLM4Picture",
+            description: "Classification d’images via LLM",
+            url: "https://github.com/alexandrerodenas/llm4picture"
+          },
         ],
         misc: [
           { title: "Water station", description: "Station d'arrosage sous Arduino", url: "https://github.com/alexandrerodenas/WaterStation" },
@@ -109,16 +118,34 @@
         const list = document.getElementById('project-list');
         list.innerHTML = '';
         allProjects[folder].forEach(project => {
-          const div = document.createElement('a');
-          div.href = project.url;
-          div.target = "_blank";
-          div.className = "block bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition";
-          div.innerHTML = `<h4 class="font-semibold mb-2">${project.title}</h4><p class="text-sm text-gray-400">${project.description}</p>`;
+          const div = document.createElement('div');
+          div.className = "relative bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition";
+      
+          const titleHtml = `
+            <div class="flex justify-between items-center mb-2">
+              <h4 class="font-semibold">${project.title}</h4>
+              ${project.preview ? `
+                <a href="${project.preview}" target="_blank" title="Voir le site">
+                  <i data-lucide="globe" class="w-5 h-5 text-yellow-400 hover:text-yellow-300"></i>
+                </a>` : ''}
+            </div>
+          `;
+      
+          div.innerHTML = `
+            <a href="${project.url}" target="_blank" class="block">
+              ${titleHtml}
+              <p class="text-sm text-gray-400">${project.description}</p>
+            </a>
+          `;
+      
           list.appendChild(div);
         });
+      
         document.getElementById('projects').classList.remove('hidden');
         hidePrinciples();
+        lucide.createIcons(); // recharge les icônes après ajout dynamique
       }
+
 
       function hidePrinciples() {
         document.getElementById('principles').classList.add('hidden');
