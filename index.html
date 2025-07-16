@@ -1,200 +1,190 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rodenas Alexandre</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-  </head>
-  <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rodenas Alexandre</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
 
-    <!-- Header -->
-    <header class="flex justify-between items-center p-6 border-b border-gray-700">
-      <h1 class="text-2xl font-bold">Rodenas Alexandre</h1>
-      <a href="https://fr.linkedin.com/in/rodenasalexandre" target="_blank" class="text-gray-300 hover:text-blue-400">
-        <i data-lucide="linkedin" class="w-6 h-6"></i>
-      </a>
-    </header>
+<!-- Header -->
+<header class="flex justify-between items-center p-6 border-b border-gray-700">
+  <h1 class="text-2xl font-bold">Rodenas Alexandre</h1>
+  <a href="https://fr.linkedin.com/in/rodenasalexandre" target="_blank" class="text-gray-300 hover:text-blue-400">
+    <i data-lucide="linkedin" class="w-6 h-6"></i>
+  </a>
+</header>
 
-    <!-- Contenu principal -->
-    <main class="flex-1 p-6">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+<!-- Contenu principal -->
+<main class="flex-1 p-6">
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
 
-        <button onclick="showFolder('mentorat')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="users" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Mentorat</span>
-        </button>
+    <button onclick="showFolder('mentorat')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="users" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Mentorat</span>
+    </button>
 
-        <button onclick="showFolder('setup')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="terminal" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Development</span>
-        </button>
+    <button onclick="showFolder('setup')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="terminal" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Development</span>
+    </button>
 
-        <button onclick="showFolder('kata')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="zap" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Kata</span>
-        </button>
+    <button onclick="showFolder('kata')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="zap" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Kata</span>
+    </button>
 
-        <button onclick="showFolder('bourse')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="piggy-bank" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Bourse</span>
-        </button>
+    <button onclick="showFolder('bourse')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="piggy-bank" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Bourse</span>
+    </button>
 
-        <button onclick="showFolder('photo')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="camera" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Photos</span>
-        </button>
+    <button onclick="showFolder('photo')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="camera" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Photos</span>
+    </button>
 
-        <button onclick="showFolder('misc')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="ellipsis" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Divers</span>
-        </button>
+    <button onclick="showFolder('misc')" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="ellipsis" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Divers</span>
+    </button>
 
-        <button onclick="showPrinciples()" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
-          <i data-lucide="book-open" class="h-12 w-12 mb-2 text-yellow-400"></i>
-          <span>Principes</span>
-        </button>
+    <button onclick="showPrinciples()" class="flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition">
+      <i data-lucide="book-open" class="h-12 w-12 mb-2 text-yellow-400"></i>
+      <span>Principes</span>
+    </button>
 
-      </div>
+  </div>
 
-      <!-- Mosaique projets -->
-      <div id="projects" class="mt-8 hidden">
-        <h3 class="text-lg font-semibold mb-4">Projets</h3>
-        <div id="project-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
-      </div>
+  <!-- Mosaique projets -->
+  <div id="projects" class="mt-8 hidden">
+    <h3 class="text-lg font-semibold mb-4">Projets</h3>
+    <div id="project-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </div>
 
-      <!-- Principes & Patterns -->
-      <div id="principles" class="mt-8 hidden">
-        <h3 class="text-lg font-semibold mb-4">Principes & Patterns</h3>
-        <div id="principles-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
-      </div>
-      <footer class="mt-auto p-4 border-gray-700 text-center text-sm text-gray-400">
-        <a href="references.html" class="mt-8 inline-block hover:text-yellow-400 transition">Ressources supplémentaires</a>
-      </footer>
-    </main>
+  <!-- Principes & Patterns -->
+  <div id="principles" class="mt-8 hidden">
+    <h3 class="text-lg font-semibold mb-4">Principes & Patterns</h3>
+    <div id="principles-list" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"></div>
+  </div>
+  <footer class="mt-auto p-4 border-gray-700 text-center text-sm text-gray-400">
+    <a href="references.html" class="mt-8 inline-block hover:text-yellow-400 transition">Ressources supplémentaires</a>
+  </footer>
+</main>
 
-    <script>
-      const allProjects = {
-        mentorat: [
-          { title: "Clean architecture en C#", description: "Test Clean Architecture en C#", url: "https://github.com/alexandrerodenas/clean-architecture-tryout" },
-          { title: "Test Doubles", description: "Les doublures de tests en typescript", url: "https://github.com/alexandrerodenas/test-doubles" },
-        ],
-        setup: [
-          { title: "JOOQ", description: "Mise en place de JOOQ avec Spring Boot", url: "https://github.com/alexandrerodenas/jooq-example" },
-          { title: "Ubuntu setup", description: "Mise en place d'un environnement de dev sous Ubuntu", url: "https://github.com/alexandrerodenas/ubuntu-setup" },
-          { title: "Docker python driven api", description: "Api en python pour piloter des déploiements docker", url: "https://github.com/alexandrerodenas/docker-python-driven-api" },
-        ],
-        kata: [
-          { title: "Les classiques", description: "Katas TDD en TypeScript", url: "https://github.com/alexandrerodenas/tdd-katas" },
-          { title: "Game of life", description: "Jeu de la vie en Python", url: "https://github.com/alexandrerodenas/Conway-game-of-life" },
-          { title: "Gilded Rose", description: "Gilded Rose", url: "https://github.com/alexandrerodenas/gilded-rose" },
-          { title: "Shifumi", description: "Jeu du Shifumi en TDD", url: "https://github.com/alexandrerodenas/shifumi" },
-        ],
-        bourse: [
-          { title: "Portfolio mobile app", description: "Simulateur boursier en Kotlin", url: "https://github.com/alexandrerodenas/portfolio-stock-exchange-app" },
-          { title: "Portfolio web app", description: "Simulateur boursier en Angular 17", url: "https://github.com/alexandrerodenas/bourse-frontend" },
-          { title: "Portfolio backend", description: "Simulateur boursier en Python", url: "https://github.com/alexandrerodenas/bourse" },
-        ],
-        photo: [
-          {
-            title: "PicsortV2",
-            description: "Classification d’images via model CNN",
-            url: "https://github.com/alexandrerodenas/picsort-v2",
-            preview: "picsort-v2/"
-          },
-          {
-            title: "LLM4Picture",
-            description: "Classification d’images via LLM",
-            url: "https://github.com/alexandrerodenas/llm4picture"
-          },
-        ],
-        misc: [
-          { title: "Water station", description: "Station d'arrosage sous Arduino", url: "https://github.com/alexandrerodenas/WaterStation" },
-        ]
-      };
+<script>
+  const allProjects = {
+    mentorat: [
+      { title: "Clean architecture en C#", description: "Test Clean Architecture en C#", url: "https://github.com/alexandrerodenas/clean-architecture-tryout" },
+      { title: "Test Doubles", description: "Les doublures de tests en typescript", url: "https://github.com/alexandrerodenas/test-doubles" },
+    ],
+    setup: [
+      { title: "JOOQ", description: "Mise en place de JOOQ avec Spring Boot", url: "https://github.com/alexandrerodenas/jooq-example" },
+      { title: "Ubuntu setup", description: "Mise en place d'un environnement de dev sous Ubuntu", url: "https://github.com/alexandrerodenas/ubuntu-setup" },
+      { title: "Docker python driven api", description: "Api en python pour piloter des déploiements docker", url: "https://github.com/alexandrerodenas/docker-python-driven-api" },
+    ],
+    kata: [
+      { title: "Les classiques", description: "Katas TDD en TypeScript", url: "https://github.com/alexandrerodenas/tdd-katas" },
+      { title: "Game of life", description: "Jeu de la vie en Python", url: "https://github.com/alexandrerodenas/Conway-game-of-life" },
+      { title: "Gilded Rose", description: "Gilded Rose", url: "https://github.com/alexandrerodenas/gilded-rose" },
+      { title: "Shifumi", description: "Jeu du Shifumi en TDD", url: "https://github.com/alexandrerodenas/shifumi" },
+    ],
+    bourse: [
+      { title: "Portfolio mobile app", description: "Simulateur boursier en Kotlin", url: "https://github.com/alexandrerodenas/portfolio-stock-exchange-app" },
+      { title: "Portfolio web app", description: "Simulateur boursier en Angular 17", url: "https://github.com/alexandrerodenas/bourse-frontend" },
+      { title: "Portfolio backend", description: "Simulateur boursier en Python", url: "https://github.com/alexandrerodenas/bourse" },
+    ],
+    photo: [
+      {
+        title: "PicsortV2",
+        description: "Classification d’images via model CNN",
+        url: "https://github.com/alexandrerodenas/picsort-v2",
+        preview: "picsort-v2/"
+      },
+      {
+        title: "LLM4Picture",
+        description: "Classification d’images via LLM",
+        url: "https://github.com/alexandrerodenas/llm4picture"
+      },
+    ],
+    misc: [
+      { title: "Water station", description: "Station d'arrosage sous Arduino", url: "https://github.com/alexandrerodenas/WaterStation" },
+    ]
+  };
 
-      function showFolder(folder) {
-        const list = document.getElementById('project-list');
-        list.innerHTML = '';
-        allProjects[folder].forEach(project => {
-          const div = document.createElement('div');
-          div.className = "relative bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition";
-      
-          const titleHtml = `
+  function showFolder(folder) {
+    const list = document.getElementById('project-list');
+    list.innerHTML = '';
+    allProjects[folder].forEach(project => {
+      const div = document.createElement('div');
+      div.className = "bg-gray-800 rounded-xl p-4 hover:bg-gray-700 transition";
+
+      div.innerHTML = `
             <div class="flex justify-between items-center mb-2">
-              <h4 class="font-semibold">${project.title}</h4>
+              <a href="${project.url}" target="_blank" class="font-semibold hover:underline">${project.title}</a>
               ${project.preview ? `
                 <a href="${project.preview}" target="_blank" title="Voir le site">
                   <i data-lucide="globe" class="w-5 h-5 text-yellow-400 hover:text-yellow-300"></i>
                 </a>` : ''}
             </div>
+            <p class="text-sm text-gray-400">${project.description}</p>
           `;
-      
-          div.innerHTML = `
-            <a href="${project.url}" target="_blank" class="block">
-              ${titleHtml}
-              <p class="text-sm text-gray-400">${project.description}</p>
-            </a>
+
+      list.appendChild(div);
+    });
+
+    document.getElementById('projects').classList.remove('hidden');
+    hidePrinciples();
+    lucide.createIcons(); // recharge les icônes
+  }
+
+  function hidePrinciples() {
+    document.getElementById('principles').classList.add('hidden');
+  }
+
+  const designPrinciples = [
+    { name: "Tell don't ask", url: "https://martinfowler.com/bliki/TellDontAsk.html", icon: "message-circle" },
+    { name: "Demeter law", url: "https://en.wikipedia.org/wiki/Law_of_Demeter", icon: "share-2" },
+    { name: "Uniform access principle", url: "https://martinfowler.com/bliki/UniformAccessPrinciple.html", icon: "grid" },
+    { name: "Favor composition over inheritance", url: "https://en.wikipedia.org/wiki/Composition_over_inheritance", icon: "layers" },
+    { name: "SOLID", url: "https://en.wikipedia.org/wiki/SOLID", icon: "package" },
+    { name: "Dependency inversion", url: "https://en.wikipedia.org/wiki/Dependency_inversion_principle", icon: "shuffle" },
+    { name: "YAGNI", url: "https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it", icon: "scissors" },
+    { name: "Principle of Least Astonishment", url: "https://en.wikipedia.org/wiki/Principle_of_least_astonishment", icon: "zap" },
+    { name: "DRY", url: "https://en.wikipedia.org/wiki/Don%27t_repeat_yourself", icon: "repeat" },
+    { name: "Prefer Immutability", url: "https://medium.com/@bubu.tripathy/clean-code-favor-immutable-over-mutable-state-b22fb9442e61", icon: "lock" },
+    { name: "Orthogonality", url: "https://medium.com/@jasoncof/cohesion-and-coupling-principles-of-orthogonal-object-oriented-programming-9bf1eb92a2e5", icon: "triangle-right" },
+    { name: "Primitive Obsession", url: "https://refactoring.guru/fr/smells/primitive-obsession", icon: "alert-triangle" },
+    { name: "Factory / Template / Strategy", url: "https://ancyracademy.fr/blog/factory-method", icon: "book-copy" },
+    { name: "Dependency magnet + If/Else vs OCP", url: "https://blog.cleancoder.com/uncle-bob/2021/03/06/ifElseSwitch.html", icon: "git-merge" },
+  ];
+
+  function showPrinciples() {
+    const list = document.getElementById('principles-list');
+    list.innerHTML = '';
+    designPrinciples.forEach(item => {
+      const card = document.createElement('a');
+      card.href = item.url;
+      card.target = "_blank";
+      card.className = "flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition";
+      card.innerHTML = `
+            <i data-lucide="${item.icon}" class="h-8 w-8 mb-2 text-yellow-400"></i>
+            <span class="text-center text-sm">${item.name}</span>
           `;
-      
-          list.appendChild(div);
-        });
-      
-        document.getElementById('projects').classList.remove('hidden');
-        hidePrinciples();
-        lucide.createIcons(); // recharge les icônes après ajout dynamique
-      }
+      list.appendChild(card);
+    });
+    document.getElementById('principles').classList.remove('hidden');
+    hideFolders();
+    lucide.createIcons(); // recharge les icônes
+  }
 
+  function hideFolders() {
+    document.getElementById('projects').classList.add('hidden');
+  }
 
-      function hidePrinciples() {
-        document.getElementById('principles').classList.add('hidden');
-      }
-    </script>
-    <script>
-      const designPrinciples = [
-        { name: "Tell don't ask", url: "https://martinfowler.com/bliki/TellDontAsk.html", icon: "message-circle" },
-        { name: "Demeter law", url: "https://en.wikipedia.org/wiki/Law_of_Demeter", icon: "share-2" },
-        { name: "Uniform access principle", url: "https://martinfowler.com/bliki/UniformAccessPrinciple.html", icon: "grid" },
-        { name: "Favor composition over inheritance", url: "https://en.wikipedia.org/wiki/Composition_over_inheritance", icon: "layers" },
-        { name: "SOLID", url: "https://en.wikipedia.org/wiki/SOLID", icon: "package" },
-        { name: "Dependency inversion", url: "https://en.wikipedia.org/wiki/Dependency_inversion_principle", icon: "shuffle" },
-        { name: "YAGNI", url: "https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it", icon: "scissors" },
-        { name: "Principle of Least Astonishment", url: "https://en.wikipedia.org/wiki/Principle_of_least_astonishment", icon: "zap" },
-        { name: "DRY", url: "https://en.wikipedia.org/wiki/Don%27t_repeat_yourself", icon: "repeat" },
-        { name: "Prefer Immutability", url: "https://medium.com/@bubu.tripathy/clean-code-favor-immutable-over-mutable-state-b22fb9442e61", icon: "lock" },
-        { name: "Orthogonality", url: "https://medium.com/@jasoncof/cohesion-and-coupling-principles-of-orthogonal-object-oriented-programming-9bf1eb92a2e5", icon: "triangle-right" },
-        { name: "Primitive Obsession", url: "https://refactoring.guru/fr/smells/primitive-obsession", icon: "alert-triangle" },
-        { name: "Factory / Template / Strategy", url: "https://ancyracademy.fr/blog/factory-method", icon: "book-copy" },
-        { name: "Dependency magnet + If/Else vs OCP", url: "https://blog.cleancoder.com/uncle-bob/2021/03/06/ifElseSwitch.html", icon: "git-merge" },
-      ];
-
-      function showPrinciples() {
-        const list = document.getElementById('principles-list');
-        list.innerHTML = '';
-        designPrinciples.forEach(item => {
-          const card = document.createElement('a');
-          card.href = item.url;
-          card.target = "_blank";
-          card.className = "flex flex-col items-center bg-gray-800 rounded-2xl p-4 hover:bg-gray-700 transition";
-          card.innerHTML = `
-        <i data-lucide="${item.icon}" class="h-8 w-8 mb-2 text-yellow-400"></i>
-        <span class="text-center text-sm">${item.name}</span>
-      `;
-          list.appendChild(card);
-        });
-        document.getElementById('principles').classList.remove('hidden');
-        hideFolders();
-        lucide.createIcons(); // recharge les icônes
-      }
-
-      function hideFolders() {
-        document.getElementById('projects').classList.add('hidden');
-      }
-
-    </script>
-    <script>
-      lucide.createIcons();
-    </script>
-  </body>
+  lucide.createIcons();
+</script>
+</body>
 </html>
