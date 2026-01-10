@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0053d2-0c3d-4956-8b04-0553b879883d" name="Changes" comment="Remove city guesser" />
+    <list default="true" id="3a0053d2-0c3d-4956-8b04-0553b879883d" name="Changes" comment="Update pea tracker" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,29 +35,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/roden/IdeaProjects/alexandrerodenas.github.io/isoquiz&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "develop",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/roden/IdeaProjects/alexandrerodenas.github.io/pea-tracker",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pea-tracker" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\isoquiz" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\day-off-planner" />
       <recent name="C:\Users\xubo462\dev\perso\github\dynastie" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pixo" />
-      <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\picsort-v2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pea-tracker" />
@@ -120,6 +120,7 @@
       <workItem from="1764090424785" duration="22000" />
       <workItem from="1764434601200" duration="16000" />
       <workItem from="1766222138889" duration="886000" />
+      <workItem from="1766223450459" duration="339000" />
     </task>
     <task id="LOCAL-00001" summary="Picsort 1.1.0">
       <option name="closed" value="true" />
@@ -185,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766223024338</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Update pea tracker">
+      <option name="closed" value="true" />
+      <created>1766223479702</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1766223479702</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +220,8 @@
     <MESSAGE value="Add assets" />
     <MESSAGE value="Add pea tracker and iso quiz" />
     <MESSAGE value="Remove city guesser" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove city guesser" />
+    <MESSAGE value="Update pea tracker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update pea tracker" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
