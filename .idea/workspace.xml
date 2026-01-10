@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3a0053d2-0c3d-4956-8b04-0553b879883d" name="Changes" comment="Update pea tracker" />
+    <list default="true" id="3a0053d2-0c3d-4956-8b04-0553b879883d" name="Changes" comment="Update pixo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +43,7 @@
     "git-widget-placeholder": "develop",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/roden/IdeaProjects/alexandrerodenas.github.io/pea-tracker",
+    "last_opened_file_path": "C:/Users/roden/IdeaProjects/alexandrerodenas.github.io/pixo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,11 +53,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pixo" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pea-tracker" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\isoquiz" />
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\day-off-planner" />
       <recent name="C:\Users\xubo462\dev\perso\github\dynastie" />
-      <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pixo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\roden\IdeaProjects\alexandrerodenas.github.io\pea-tracker" />
@@ -121,6 +121,7 @@
       <workItem from="1764434601200" duration="16000" />
       <workItem from="1766222138889" duration="886000" />
       <workItem from="1766223450459" duration="339000" />
+      <workItem from="1768077025438" duration="41000" />
     </task>
     <task id="LOCAL-00001" summary="Picsort 1.1.0">
       <option name="closed" value="true" />
@@ -194,7 +195,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766223479702</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update pixo">
+      <option name="closed" value="true" />
+      <created>1768077049968</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1768077049968</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +230,8 @@
     <MESSAGE value="Add pea tracker and iso quiz" />
     <MESSAGE value="Remove city guesser" />
     <MESSAGE value="Update pea tracker" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update pea tracker" />
+    <MESSAGE value="Update pixo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update pixo" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
