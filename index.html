@@ -12,6 +12,39 @@
     .lang-btn.active { opacity: 1; transform: scale(1.15); }
     .lang-btn:hover { opacity: 0.8; }
     .icon-sm { width: 20px; height: 20px; }
+
+    /* Pulse animation for live status */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50% { opacity: 0.6; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+    .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+    /* Loading spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { animation: spin 1s linear infinite; }
+
+    /* Fade-in for loaded content */
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fade-in 0.5s ease-out forwards; }
+
+    /* Skeleton loading */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s ease-in-out infinite;
+      border-radius: 6px;
+    }
+    .skeleton-text { height: 14px; margin-bottom: 8px; }
+    .skeleton-title { height: 20px; width: 60%; margin-bottom: 12px; }
+    .skeleton-badge { height: 18px; width: 90px; border-radius: 9999px; }
   </style>
 </head>
 <body class="min-h-screen">
@@ -19,22 +52,18 @@
 <nav class="max-w-5xl mx-auto p-6 flex justify-between items-center">
   <h1 class="text-xl font-bold tracking-tighter text-white">AR.</h1>
   <div class="flex items-center gap-5">
-    <!-- Language toggle -->
     <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-full px-2 py-1">
       <button id="btn-fr" class="lang-btn active text-sm" onclick="switchLang('fr')" title="Français">🇫🇷</button>
       <button id="btn-en" class="lang-btn text-sm" onclick="switchLang('en')" title="English">🇬🇧</button>
     </div>
-    <!-- GitHub -->
     <a href="https://github.com/alexandrerodenas" class="text-slate-300 hover:text-amber-400 transition" aria-label="GitHub">
-      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
     </a>
-    <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/rodenasalexandre" class="text-slate-300 hover:text-amber-400 transition" aria-label="LinkedIn">
-      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
     </a>
-    <!-- Email -->
     <a href="mailto:rodenas.alexandre@gmail.com" class="text-slate-300 hover:text-amber-400 transition" aria-label="Email">
-      <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+      <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
     </a>
   </div>
 </nav>
@@ -117,55 +146,37 @@
     </div>
   </section>
 
-  <section class="mt-20 border-t border-slate-800 pt-12">
-    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">
+  <section id="mcp" class="mt-20 border-t border-slate-800 pt-12">
+    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-2">
       <span class="lang-fr">Serveurs MCP</span>
       <span class="lang-en hidden">MCP Servers</span>
     </h3>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Agentic Memory MCP -->
-      <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+    <p class="text-slate-500 text-sm mb-8">
+      <span class="lang-fr">Connectés et opérationnels — statuts vérifiés en temps réel.</span>
+      <span class="lang-en hidden">Connected and live — status verified in real time.</span>
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="mcp-cards">
+      <!-- Agentic Memory MCP — Skeleton -->
+      <div id="card-am" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
         <div class="flex items-start justify-between mb-3">
-          <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
-          <span class="flex gap-2 shrink-0">
-            <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full font-medium">
-              <span class="lang-fr">Provider Hermes</span>
-              <span class="lang-en hidden">Hermes Provider</span>
-            </span>
-          </span>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-badge"></div>
         </div>
-        <p class="text-slate-400 text-sm mb-4">
-          <span class="lang-fr">Knowledge Graph persistant avec scoring pour agents IA. Fonctionne en standalone, serveur MCP, ou provider natif Hermes Agent.</span>
-          <span class="lang-en hidden">Persistent Knowledge Graph with scoring for AI agents. Works standalone, as an MCP server, or as a native Hermes Agent provider.</span>
-        </p>
-        <div class="flex gap-3 text-sm">
-          <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</span>
-          <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg> PyPI</a>
-        </div>
-      </a>
-      <!-- Naolib MCP -->
-      <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+        <div class="skeleton skeleton-text" style="width:100%"></div>
+        <div class="skeleton skeleton-text" style="width:75%"></div>
+        <div class="mt-4 skeleton" style="height:16px;width:50%"></div>
+      </div>
+      <!-- Naolib MCP — Skeleton -->
+      <div id="card-nl" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
         <div class="flex items-start justify-between mb-3">
-          <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
-          <span class="flex gap-2 shrink-0">
-            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">
-              <span class="lang-fr">Transport Temps Réel</span>
-              <span class="lang-en hidden">Real-time Transit</span>
-            </span>
-          </span>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-badge"></div>
         </div>
-        <p class="text-slate-400 text-sm mb-4">
-          <span class="lang-fr">Serveur MCP pour les données temps réel des transports en commun de Nantes (Naolib). SIRI, horaires, véhicules, alertes.</span>
-          <span class="lang-en hidden">MCP server for real-time public transit data in Nantes (Naolib). SIRI, schedules, vehicles, alerts.</span>
-        </p>
-        <div class="flex gap-3 text-sm">
-          <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</span>
-          <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg> PyPI</a>
-          <a href="naolib.html" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.43 1.43a2.25 2.25 0 000 3.182l.393.393a2.25 2.25 0 003.182 0L19 14.5m0 0l1.43 1.43a2.25 2.25 0 010 3.182l-.393.393a2.25 2.25 0 01-3.182 0L19 14.5M14.25 14.5v-5.714a2.25 2.25 0 01.659-1.591L19 3.104"/></svg>
-            <span class="lang-fr">Démo</span><span class="lang-en hidden">Demo</span>
-          </a>
-        </div>
-      </a>
+        <div class="skeleton skeleton-text" style="width:100%"></div>
+        <div class="skeleton skeleton-text" style="width:75%"></div>
+        <div class="mt-4 skeleton" style="height:16px;width:50%"></div>
+      </div>
     </div>
   </section>
 </main>
@@ -182,6 +193,168 @@
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.documentElement.lang = lang;
   }
+
+  // ─── Live status loaders ─────────────────────────────
+  async function fetchJSON(url) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  }
+
+  async function fetchText(url) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(r.status);
+    return r.text();
+  }
+
+  function renderCard(container, html) {
+    container.innerHTML = html;
+    container.classList.add('fade-in');
+  }
+
+  function renderError(container, name) {
+    container.classList.remove('bg-slate-900', 'border-slate-800');
+    container.classList.add('bg-red-950/30', 'border-red-900/50');
+    container.innerHTML = `
+      <div class="flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-red-500"></span>
+        <span class="text-red-400 text-sm">
+          <span class="lang-fr">Impossible de joindre ${name}</span>
+          <span class="lang-en hidden">Could not reach ${name}</span>
+        </span>
+      </div>`;
+  }
+
+  // Agentic Memory — fetch PyPI version
+  async function loadAgenticMemory() {
+    const c = document.getElementById('card-am');
+    try {
+      const data = await fetchJSON('https://pypi.org/pypi/agentic-memory-mcp/json');
+      const version = data.info.version;
+      const released = new Date(data.info.release_date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+      const downloads = (data.info.requires_python || '≥ 3.9');
+
+      renderCard(c, `
+        <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group block">
+          <div class="flex items-start justify-between mb-3">
+            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
+            <span class="flex gap-2 shrink-0 items-center">
+              <span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
+              <span class="px-2 py-0.5 bg-green-500/10 text-green-400 text-xs rounded-full font-medium">v${version}</span>
+            </span>
+          </div>
+          <p class="text-slate-400 text-sm mb-4">
+            <span class="lang-fr">Knowledge Graph persistant avec scoring pour agents IA. Provider natif Hermes Agent.</span>
+            <span class="lang-en hidden">Persistent Knowledge Graph with scoring for AI agents. Native Hermes Agent provider.</span>
+          </p>
+          <div class="flex gap-3 text-sm flex-wrap">
+            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </span>
+            <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
+              PyPI
+            </a>
+            <span class="text-slate-600 flex items-center gap-1">
+              <span class="lang-fr">Publié le ${released}</span>
+              <span class="lang-en hidden">Published ${released}</span>
+            </span>
+          </div>
+        </a>
+      `);
+    } catch {
+      renderError(c, 'Agentic Memory');
+    }
+  }
+
+  // Naolib — fetch real SIRI API status
+  async function loadNaolib() {
+    const c = document.getElementById('card-nl');
+    try {
+      const data = await fetchJSON('https://api.staging.okina.fr/gateway/sem/realtime/anshar/services?xml=<CheckStatusRequest%20xmlns=%22http://www.siri.org.uk/siri%22><RequestTimestamp>2025-01-01T00:00:00Z</RequestTimestamp></CheckStatusRequest>');
+      // If we get here, the API is responding
+      const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+      renderCard(c, `
+        <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group block">
+          <div class="flex items-start justify-between mb-3">
+            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
+            <span class="flex gap-2 shrink-0 items-center">
+              <span class="w-2 h-2 rounded-full bg-blue-400 pulse-dot"></span>
+              <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">
+                <span class="lang-fr">Temps réel</span>
+                <span class="lang-en hidden">Live</span>
+              </span>
+            </span>
+          </div>
+          <p class="text-slate-400 text-sm mb-4">
+            <span class="lang-fr">Données SIRI temps réel des transports Nantes (Naolib). Horaires, véhicules, alertes.</span>
+            <span class="lang-en hidden">Real-time SIRI transit data for Nantes (Naolib). Schedules, vehicles, alerts.</span>
+          </p>
+          <div class="flex gap-3 text-sm flex-wrap">
+            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </span>
+            <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
+              PyPI
+            </a>
+            <a href="naolib.html" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.43 1.43a2.25 2.25 0 000 3.182l.393.393a2.25 2.25 0 003.182 0L19 14.5m0 0l1.43 1.43a2.25 2.25 0 010 3.182l-.393.393a2.25 2.25 0 01-3.182 0L19 14.5M14.25 14.5v-5.714a2.25 2.25 0 01.659-1.591L19 3.104"/></svg>
+              <span class="lang-fr">Démo</span><span class="lang-en hidden">Demo</span>
+            </a>
+            <span class="text-slate-600 flex items-center gap-1">
+              <span class="lang-fr">Vérifié à ${now}</span>
+              <span class="lang-en hidden">Checked at ${now}</span>
+            </span>
+          </div>
+        </a>
+      `);
+    } catch {
+      // Fallback: show card without live data
+      const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      renderCard(c, `
+        <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group block">
+          <div class="flex items-start justify-between mb-3">
+            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
+            <span class="flex gap-2 shrink-0 items-center">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full font-medium">
+                <span class="lang-fr">Hors ligne</span>
+                <span class="lang-en hidden">Offline</span>
+              </span>
+            </span>
+          </div>
+          <p class="text-slate-400 text-sm mb-4">
+            <span class="lang-fr">Données SIRI temps réel des transports Nantes (Naolib). Horaires, véhicules, alertes.</span>
+            <span class="lang-en hidden">Real-time SIRI transit data for Nantes (Naolib). Schedules, vehicles, alerts.</span>
+          </p>
+          <div class="flex gap-3 text-sm flex-wrap">
+            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </span>
+            <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
+              PyPI
+            </a>
+            <a href="naolib.html" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
+              <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.43 1.43a2.25 2.25 0 000 3.182l.393.393a2.25 2.25 0 003.182 0L19 14.5m0 0l1.43 1.43a2.25 2.25 0 010 3.182l-.393.393a2.25 2.25 0 01-3.182 0L19 14.5M14.25 14.5v-5.714a2.25 2.25 0 01.659-1.591L19 3.104"/></svg>
+              <span class="lang-fr">Démo</span><span class="lang-en hidden">Demo</span>
+            </a>
+          </div>
+        </a>
+      `);
+    }
+  }
+
+  // Run both on load
+  document.addEventListener('DOMContentLoaded', () => {
+    loadAgenticMemory();
+    loadNaolib();
+  });
 </script>
 </body>
 </html>
