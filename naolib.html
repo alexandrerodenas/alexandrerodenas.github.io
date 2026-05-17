@@ -61,7 +61,7 @@
       <div class="text-amber-400 text-lg mb-2">🧠</div>
       <h3 class="text-white font-semibold mb-1">IA Locale (wllama)</h3>
       <p class="text-sm text-slate-400">
-        Le modèle <span class="mono text-slate-300">Qwen3-0.6B</span> est téléchargé une fois depuis HuggingFace (~650&nbsp;Mo)
+        Le modèle <span class="mono text-slate-300">Qwen3-0.6B</span> est téléchargé une fois depuis HuggingFace (~380&nbsp;Mo)
         et s'exécute entièrement dans votre navigateur via WebAssembly — aucun serveur externe, aucune donnée envoyée.
       </p>
     </div>
@@ -378,7 +378,7 @@ const WASM_PATHS = {
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
 const HF_REPO = 'unsloth/Qwen3-0.6B-GGUF';
-const HF_FILE = 'Qwen3-0.6B-Q8_0.gguf'; // ~650 Mo
+const HF_FILE = 'Qwen3-0.6B-Q4_K_M.gguf'; // ~378 Mo
 
 const API_BASE = 'https://api.okina.fr/gateway/sem/realtime';
 const DATASET_ID = 'NAOLIBORG';
@@ -887,7 +887,7 @@ function appendDownloadMessage() {
         <span id="chat-progress-pct" class="text-[0.65rem] mono text-amber-400">0%</span>
         <span id="chat-progress-size" class="text-[0.65rem] mono text-slate-500">0 / — Mo</span>
       </div>
-      <p class="text-[0.6rem] text-slate-500 mt-1.5">~650 Mo · Qwen3-0.6B · GGUF Q8_0</p>
+      <p class="text-[0.6rem] text-slate-500 mt-1.5">~380 Mo · Qwen3-0.6B · GGUF Q4_K_M</p>
     </div>
   `;
   // Insert after the welcome message (first child of messages)
