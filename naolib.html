@@ -449,7 +449,8 @@ async function loadModel() {
   try {
     console.log('[naolib] Creating Wllama instance…');
     statusText.textContent = 'Chargement du moteur Wasm…';
-    wllama = new Wllama(WASM_PATHS, {
+    wllama = new Wllama({
+      pathConfig: WASM_PATHS,
       logger: LoggerWithoutDebug,
       parallelDownloads: 3,
     });
