@@ -23,6 +23,8 @@
     #progress-pct { position: absolute; right: 0; top: -18px; font-size: 0.65rem; color: #f59e0b; font-weight: 500; }
     #progress-details { font-size: 0.65rem; color: #94a3b8; white-space: nowrap; }
     .download-msg { animation: fadeIn 0.3s ease-out; }
+    .spinner { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body class="min-h-screen">
@@ -358,7 +360,7 @@ window._loadModelClick = function() {
 
 <script type="module">
 // ── wllama import from CDN ──────────────────────────────────────────────────
-import { Wllama, LoggerWithoutDebug } from 'https://esm.sh/@wllama/wllama@3.0.0';
+import { Wllama, LoggerWithoutDebug } from 'https://unpkg.com/@wllama/wllama@3.1.1/esm/index.js';
 
 console.log('[naolib] wllama imported successfully');
 
