@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="fr" class="bg-slate-950 text-slate-200">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naolib MCP — Démo Interactive | Alexandre Rodenas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+    .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .fade-in { animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .pulse-dot { animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+    .glow { box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
+    .tool-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 500; }
+    .progress-ring { transition: stroke-dashoffset 0.3s; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="max-w-5xl mx-auto p-6 flex justify-between items-center border-b border-slate-800/50">
+  <a href="index.html" class="flex items-center gap-3 group">
+    <svg class="w-5 h-5 text-slate-500 group-hover:text-amber-400 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M21 12H3"/></svg>
+    <span class="text-sm text-slate-500 group-hover:text-slate-300 transition">Retour à l'accueil</span>
+  </a>
+  <a href="https://github.com/alexandrerodenas/naolib-mcp" target="_blank" class="text-slate-400 hover:text-amber-400 transition flex items-center gap-2">
+    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    naolib-mcp
+  </a>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+  <div class="flex items-center gap-3 mb-3">
+    <span class="text-amber-400 text-2xl">🚊</span>
+    <h1 class="text-3xl font-bold text-white tracking-tight">Naolib MCP — Démo Interactive</h1>
+  </div>
+  <p class="text-slate-400 text-lg max-w-2xl">
+    Interrogez les transports en temps réel de Nantes (bus, tramway) en langage naturel.
+    Un modèle d'IA local (<strong class="text-slate-200">Qwen2.5-3B</strong>) tourne <strong class="text-slate-200">100&nbsp;% dans votre navigateur</strong> via WebAssembly,
+    choisit les outils MCP appropriés, et vous répond en français.
+  </p>
+</header>
+
+<!-- ═══════════════════ EXPLAINERS ═══════════════════ -->
+<section class="max-w-5xl mx-auto px-6 pb-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div class="text-amber-400 text-lg mb-2">🧠</div>
+      <h3 class="text-white font-semibold mb-1">IA Locale (wllama)</h3>
+      <p class="text-sm text-slate-400">
+        Le modèle <span class="mono text-slate-300">Qwen2.5-3B-Instruct</span> est téléchargé une fois depuis HuggingFace (~2&nbsp;Go)
+        et s'exécute entièrement dans votre navigateur via WebAssembly — aucun serveur externe, aucune donnée envoyée.
+      </p>
+    </div>
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div class="text-amber-400 text-lg mb-2">🔧</div>
+      <h3 class="text-white font-semibold mb-1">Outils MCP (10 outils)</h3>
+      <p class="text-sm text-slate-400">
+        Le MCP <span class="mono text-slate-300">naolib</span> expose 10 outils SIRI&nbsp;:
+        recherche d'arrêts, passages en temps réel, alertes, positions des véhicules, horaires, équipements, etc.
+      </p>
+    </div>
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+      <div class="text-amber-400 text-lg mb-2">🔄</div>
+      <h3 class="text-white font-semibold mb-1">Appel d'outils automatique</h3>
+      <p class="text-sm text-slate-400">
+        L'IA analyse votre question, sélectionne le bon outil avec les bons paramètres,
+        appelle l'API Naolib, puis formule une réponse naturelle avec les résultats.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ STATUS BAR ═══════════════════ -->
+<section class="max-w-5xl mx-auto px-6 pb-4">
+  <div id="status-bar" class="bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 flex items-center gap-3">
+    <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
+    <span id="status-text" class="text-sm text-slate-400">Modèle non chargé — cliquez sur «&nbsp;Charger le modèle&nbsp;» pour commencer</span>
+    <div id="progress-wrap" class="hidden flex-1 max-w-xs ml-auto">
+      <div class="w-full bg-slate-800 rounded-full h-1.5">
+        <div id="progress-bar" class="bg-amber-500 h-1.5 rounded-full transition-all duration-300" style="width:0%"></div>
+      </div>
+    </div>
+    <button id="btn-load" onclick="loadModel()" class="ml-auto text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap">
+      ⚡ Charger le modèle
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════ CHAT ═══════════════════ -->
+<section class="max-w-5xl mx-auto px-6 pb-6">
+  <div class="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden glow">
+    <!-- Chat header -->
+    <div class="border-b border-slate-800 px-5 py-3 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 text-sm">🚊</div>
+      <div>
+        <div class="text-sm font-medium text-white">Naolib Assistant</div>
+        <div id="chat-status-sub" class="text-xs text-slate-500">En attente du modèle…</div>
+      </div>
+      <div id="tool-calls-indicator" class="ml-auto hidden items-center gap-1">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+        <span class="text-xs text-emerald-400 mono" id="tool-calls-text"></span>
+      </div>
+    </div>
+
+    <!-- Messages area -->
+    <div id="messages" class="h-[450px] overflow-y-auto p-5 space-y-4 scrollbar-thin">
+      <div class="fade-in flex gap-3">
+        <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-xs">🚊</div>
+        <div class="max-w-[80%]">
+          <div class="bg-slate-800/80 rounded-xl rounded-tl-sm px-4 py-3 text-sm text-slate-300 leading-relaxed">
+            <p>Bonjour ! 👋 Je suis connecté aux données <strong>Naolib</strong> (transports de Nantes Métropole).</p>
+            <p class="mt-2">Posez-moi une question en langage naturel, par exemple :</p>
+            <div class="mt-2 space-y-1">
+              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quand passe le prochain tram à Commerce ?</button>
+              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Y a-t-il des perturbations sur le réseau ?</button>
+              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quelles sont les lignes de bus disponibles ?</button>
+              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Trouve-moi un arrêt près de Babinière</button>
+              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Les ascenseurs fonctionnent-ils à Gare Sud ?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input area -->
+    <div class="border-t border-slate-800 p-4">
+      <form id="chat-form" onsubmit="sendMessage(event)" class="flex gap-3">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Posez votre question sur les transports nantais…"
+          class="flex-1 bg-slate-800/60 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled
+          autocomplete="off"
+        />
+        <button
+          id="btn-send"
+          type="submit"
+          class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium rounded-xl px-5 py-3 text-sm transition disabled:opacity-40 disabled:cursor-not-allowed"
+          disabled
+        >
+          Envoyer
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TOOLS REFERENCE ═══════════════════ -->
+<section class="max-w-5xl mx-auto px-6 pb-8">
+  <details class="bg-slate-900/40 border border-slate-800/60 rounded-xl">
+    <summary class="px-5 py-4 cursor-pointer text-sm font-medium text-slate-300 hover:text-white transition select-none">
+      📋 Voir les 10 outils MCP disponibles
+    </summary>
+    <div class="px-5 pb-5 grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-blue-500/20 text-blue-400 border border-blue-500/30">check_api_status</span>
+        </div>
+        <p class="text-xs text-slate-400">Vérifie l'état de l'API SIRI Naolib.</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-blue-500/20 text-blue-400 border border-blue-500/30">search_stop</span>
+          <span class="text-[0.65rem] text-slate-500">query</span>
+        </div>
+        <p class="text-xs text-slate-400">Recherche un arrêt par nom (flou).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">get_stop_monitoring</span>
+          <span class="text-[0.65rem] text-slate-500">stop_id, max</span>
+        </div>
+        <p class="text-xs text-slate-400">Prochains passages à un arrêt (XML SIRI, auth requise).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-amber-500/20 text-amber-400 border border-amber-500/30">discover_stops</span>
+          <span class="text-[0.65rem] text-slate-500">query</span>
+        </div>
+        <p class="text-xs text-slate-400">Liste les arrêts disponibles (SIRI Lite, libre).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-amber-500/20 text-amber-400 border border-amber-500/30">discover_lines</span>
+          <span class="text-[0.65rem] text-slate-500">query</span>
+        </div>
+        <p class="text-xs text-slate-400">Liste les lignes de transport (SIRI Lite, libre).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-amber-500/20 text-amber-400 border border-amber-500/30">get_traffic_alerts</span>
+        </div>
+        <p class="text-xs text-slate-400">Perturbations et incidents en cours (SIRI Lite, libre).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-amber-500/20 text-amber-400 border border-amber-500/30">get_general_messages</span>
+        </div>
+        <p class="text-xs text-slate-400">Messages d'information et annonces du réseau.</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">get_vehicle_monitoring</span>
+          <span class="text-[0.65rem] text-slate-500">line_ref</span>
+        </div>
+        <p class="text-xs text-slate-400">Positions GPS des véhicules sur une ligne (auth requise).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">get_estimated_timetables</span>
+          <span class="text-[0.65rem] text-slate-500">line_ref</span>
+        </div>
+        <p class="text-xs text-slate-400">Horaires estimés pour tous les arrêts d'une ligne (auth).</p>
+      </div>
+      <div class="bg-slate-900/60 rounded-lg p-4 border border-slate-800/50">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="tool-badge bg-amber-500/20 text-amber-400 border border-amber-500/30">get_facility_status</span>
+          <span class="text-[0.65rem] text-slate-500">stop_id</span>
+        </div>
+        <p class="text-xs text-slate-400">État des équipements (ascenseurs, escalators, etc.).</p>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════ ARCHITECTURE ═══════════════════ -->
+<section class="max-w-5xl mx-auto px-6 pb-12">
+  <details class="bg-slate-900/40 border border-slate-800/60 rounded-xl">
+    <summary class="px-5 py-4 cursor-pointer text-sm font-medium text-slate-300 hover:text-white transition select-none">
+      🏗️ Comment ça marche ? (Architecture)
+    </summary>
+    <div class="px-5 pb-5 space-y-4 text-sm text-slate-400 leading-relaxed">
+      <p>
+        Cette page démontre le concept de <strong class="text-slate-200">MCP (Model Context Protocol)</strong> entièrement côté client :
+      </p>
+      <ol class="list-decimal list-inside space-y-2 ml-2">
+        <li><strong class="text-slate-300">Chargement du modèle</strong> — <span class="mono text-slate-300">wllama</span> télécharge le GGUF <span class="mono text-slate-300">Qwen2.5-3B-Instruct</span> depuis HuggingFace et l'exécute via WebAssembly dans votre navigateur.</li>
+        <li><strong class="text-slate-300">Prompt + outils</strong> — Votre question est envoyée au modèle avec une liste d'outils disponibles (les 10 fonctions MCP Naolib) au format JSON.</li>
+        <li><strong class="text-slate-300">Décision d'outil</strong> — Le modèle répond soit directement, soit avec un appel d'outil au format <span class="mono text-slate-300">{ "tool": "...", "arguments": {...} }</span>.</li>
+        <li><strong class="text-slate-300">Exécution</strong> — Le JavaScript exécute la fonction MCP correspondante, qui appelle l'API SIRI Naolib.</li>
+        <li><strong class="text-slate-300">Réponse naturelle</strong> — Le résultat de l'outil est renvoyé au modèle qui formule une réponse en langage naturel.</li>
+      </ol>
+      <div class="bg-slate-900/80 rounded-lg p-4 mono text-xs text-slate-500 overflow-x-auto">
+        <div class="text-slate-400 mb-2">// Schéma simplifié :</div>
+        <div>Utilisateur → "Quand passe le tram à Commerce ?"</div>
+        <div class="text-amber-400/60">  ↓ LLM (function calling)</div>
+        <div>{ "tool": "search_stop", "arguments": { "query": "Commerce" } }</div>
+        <div class="text-emerald-400/60">  ↓ MCP Tool → API SIRI</div>
+        <div>Résultat: StopPoint:COMM</div>
+        <div class="text-amber-400/60">  ↓ LLM (function calling)</div>
+        <div>{ "tool": "get_stop_monitoring", "arguments": { "stop_id": "FR_NAOLIB:Quay:2687" } }</div>
+        <div class="text-emerald-400/60">  ↓ MCP Tool → API SIRI</div>
+        <div>Résultat: Tram A → Beaujoire, 14:23 ✓ | 14:38 ✓</div>
+        <div class="text-amber-400/60">  ↓ LLM (réponse finale)</div>
+        <div class="text-slate-300">"Le prochain tram A à Commerce passe à 14h23 direction Beaujoire…"</div>
+      </div>
+      <div class="flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-amber-300/80 text-xs">
+        <span>💡</span>
+        <span><strong class="text-amber-400">Note :</strong> Les outils nécessitant une clé API (stop_monitoring, vehicle_monitoring, estimated_timetables) retourneront une erreur si la clé n'est pas configurée. Les outils SIRI Lite (discover_lines, discover_stops, traffic_alerts, general_messages, facility_status) fonctionnent sans clé.</span>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="max-w-5xl mx-auto px-6 pb-8 border-t border-slate-800/50 pt-6 flex justify-between items-center text-xs text-slate-500">
+  <span>© 2025 Alexandre Rodenas — naolib-mcp (MCP SIRI Naolib Nantes)</span>
+  <a href="https://github.com/alexandrerodenas/naolib-mcp" class="hover:text-amber-400 transition">Voir sur GitHub →</a>
+</footer>
+
+<!-- ═══════════════════ WLLAMA + MCP ENGINE ═══════════════════ -->
+<script type="module">
+// ── wllama import from CDN ──────────────────────────────────────────────────
+import { Wllama, LoggerWithoutDebug } from 'https://esm.sh/@wllama/wllama@3.0.0';
+
+// ── Config ──────────────────────────────────────────────────────────────────
+const WASM_PATHS = {
+  'single-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/single-thread/wllama.wasm',
+  'multi-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/multi-thread/wllama.wasm',
+};
+
+// Qwen2.5-3B-Instruct — best tool-calling in the ~3B range
+const HF_REPO = 'Qwen/Qwen2.5-3B-Instruct-GGUF';
+const HF_FILE = 'qwen2.5-3b-instruct-q4_k_m.gguf'; // ~2 Go
+
+const API_BASE = 'https://api.okina.fr/gateway/sem/realtime';
+const DATASET_ID = 'NAOLIBORG';
+
+// ── State ───────────────────────────────────────────────────────────────────
+let wllama = null;
+let modelLoaded = false;
+let conversationHistory = [];
+let isProcessing = false;
+
+// ── DOM refs ────────────────────────────────────────────────────────────────
+const statusDot = document.getElementById('status-dot');
+const statusText = document.getElementById('status-text');
+const progressWrap = document.getElementById('progress-wrap');
+const progressBar = document.getElementById('progress-bar');
+const btnLoad = document.getElementById('btn-load');
+const chatInput = document.getElementById('chat-input');
+const btnSend = document.getElementById('btn-send');
+const messagesDiv = document.getElementById('messages');
+const chatStatusSub = document.getElementById('chat-status-sub');
+const toolCallsIndicator = document.getElementById('tool-calls-indicator');
+const toolCallsText = document.getElementById('tool-calls-text');
+
+// ── Stop index cache (fuzzy matching like the Python MCP) ───────────────────
+let stopsIndex = {};
+
+async function loadStopsIndex() {
+  try {
+    // Try loading from the Naolib MCP's cached stops or build a simple one
+    const resp = await fetch(`${API_BASE}/siri/2.0/stoppoints-discovery.json?datasetId=${DATASET_ID}`);
+    if (resp.ok) {
+      const data = await resp.json();
+      const stops = data.stopPoints || data.AnnotatedStopPointRef || [];
+      stops.forEach(s => {
+        const ref = s.StopPointRef || s.stopPointRef || '?';
+        const name = s.StopPointName || s.stopPointName || s.Name || '';
+        if (name) stopsIndex[name] = ref;
+      });
+    }
+  } catch (e) {
+    console.warn('[stops] Failed to load:', e);
+  }
+}
+
+// ── Model loading ───────────────────────────────────────────────────────────
+async function loadModel() {
+  btnLoad.disabled = true;
+  btnLoad.textContent = '⏳ Chargement…';
+  statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 pulse-dot';
+  statusText.textContent = 'Téléchargement du modèle Qwen2.5-3B…';
+  progressWrap.classList.remove('hidden');
+  progressWrap.classList.add('flex');
+
+  try {
+    wllama = new Wllama(WASM_PATHS, {
+      logger: LoggerWithoutDebug,
+      parallelDownloads: 4,
+    });
+
+    await wllama.loadModelFromHF(
+      { repo: HF_REPO, file: HF_FILE },
+      {
+        progressCallback: ({ loaded, total }) => {
+          const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
+          progressBar.style.width = pct + '%';
+          statusText.textContent = `Téléchargement ${HF_FILE} — ${pct}%`;
+        },
+      }
+    );
+
+    modelLoaded = true;
+    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+    statusText.textContent = 'Modèle Qwen2.5-3B chargé et prêt ✓';
+    progressWrap.classList.add('hidden');
+    btnLoad.textContent = '✓ Prêt';
+    btnLoad.className = 'ml-auto text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg px-3 py-1.5 whitespace-nowrap cursor-default';
+    chatInput.disabled = false;
+    btnSend.disabled = false;
+    chatStatusSub.textContent = 'Prêt — posez votre question';
+
+    // Preload stops index
+    loadStopsIndex();
+
+    // Set system prompt
+    conversationHistory = [{
+      role: 'system',
+      content: getSystemPrompt(),
+    }];
+  } catch (err) {
+    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+    statusText.textContent = 'Erreur: ' + err.message;
+    btnLoad.disabled = false;
+    btnLoad.textContent = '⚡ Réessayer';
+  }
+}
+
+// ── System prompt with tool definitions ─────────────────────────────────────
+function getSystemPrompt() {
+  return `Tu es un assistant spécialisé dans les transports en commun de Nantes Métropole (réseau Naolib/TAN).
+Tu réponds en français, de manière concise et utile.
+
+Tu as accès aux outils suivants. Pour appeler un outil, réponds UNIQUEMENT avec un objet JSON dans un bloc de code:
+
+\`\`\`json
+{"tool": "nom_outil", "arguments": {"param": "valeur"}}
+\`\`\`
+
+Outils disponibles :
+1. search_stop(query: str) — Recherche un arrêt par nom. Retourne le nom et l'ID.
+2. discover_stops(query: str) — Liste les arrêts (filtrable).
+3. discover_lines(query: str) — Liste les lignes de bus/tram.
+4. get_traffic_alerts() — Perturbations et incidents en cours.
+5. get_general_messages() — Messages et annonces du réseau.
+6. get_facility_status(stop_id: str) — État des équipements (ascenseurs, etc.).
+7. check_api_status() — Vérifier si l'API fonctionne.
+
+⚠️ Les outils suivants nécessitent une clé API et peuvent échouer sans :
+8. get_stop_monitoring(stop_id: str, maximum_visits: int=5) — Prochains passages à un arrêt.
+9. get_vehicle_monitoring(line_ref: str) — Positions GPS des véhicules.
+10. get_estimated_timetables(line_ref: str) — Horaires estimés d'une ligne.
+
+RÈGLES :
+- Si tu as besoin d'un stop_id, commence par search_stop ou discover_stops.
+- Si tu as besoin d'un line_ref, commence par discover_lines.
+- Après avoir reçu un résultat d'outil, formule une réponse naturelle en français.
+- Si un outil échoue, explique-le poliment et propose une alternative.
+- Si la question ne concerne pas les transports nantais, dis-le poliment.`;
+}
+
+// ── MCP Tools (client-side implementations) ─────────────────────────────────
+const TOOLS = {
+  search_stop: async (args) => {
+    const query = args.query?.toLowerCase() || '';
+    if (!Object.keys(stopsIndex).length) await loadStopsIndex();
+    const names = Object.keys(stopsIndex);
+    const matches = names.filter(n => n.toLowerCase().includes(query)).slice(0, 5);
+    if (!matches.length) return `Aucun arrêt trouvé pour "${args.query}".`;
+    return matches.map((n, i) => `${i+1}. **${n}** → \`${stopsIndex[n]}\``).join('\n');
+  },
+
+  discover_stops: async (args) => {
+    const q = args.query || '';
+    const params = new URLSearchParams({ datasetId: DATASET_ID });
+    if (q) params.set('Text', q);
+    const resp = await fetch(`${API_BASE}/siri/2.0/stoppoints-discovery.json?${params}`);
+    if (!resp.ok) return `Erreur HTTP ${resp.status}`;
+    const data = await resp.json();
+    const stops = data.stopPoints || data.AnnotatedStopPointRef || [];
+    if (!stops.length) return 'Aucun arrêt trouvé.';
+    return stops.slice(0, 20).map(s => {
+      const ref = s.StopPointRef || s.stopPointRef || '?';
+      const name = s.StopPointName || s.stopPointName || s.Name || '';
+      return `• **${name}** → \`${ref}\``;
+    }).join('\n');
+  },
+
+  discover_lines: async (args) => {
+    const q = args.query || '';
+    const params = new URLSearchParams({ datasetId: DATASET_ID });
+    if (q) params.set('Text', q);
+    const resp = await fetch(`${API_BASE}/siri/2.0/lines-discovery.json?${params}`);
+    if (!resp.ok) return `Erreur HTTP ${resp.status}`;
+    const data = await resp.json();
+    const lines = data.lines || data.AnnotatedLineRef || [];
+    if (!lines.length) return 'Aucune ligne trouvée.';
+    const byMode = {};
+    lines.slice(0, 50).forEach(l => {
+      const mode = (l.TransportMode || l.mode || 'inconnu').toLowerCase();
+      const ref = l.LineRef || l.lineRef || '?';
+      const name = l.LineName || l.lineName || l.PublishedLineName || ref;
+      if (!byMode[mode]) byMode[mode] = [];
+      byMode[mode].push({ name, ref });
+    });
+    const iconMap = { tram: '🚊', bus: '🚌', rail: '🚆', metro: '🚇', ferry: '⛴️' };
+    return Object.entries(byMode).map(([mode, items]) => {
+      const icon = iconMap[mode] || '🚃';
+      const list = items.slice(0, 10).map(i => `  • **${i.name}** → \`${i.ref}\``).join('\n');
+      return `${icon} **${mode}**\n${list}`;
+    }).join('\n\n');
+  },
+
+  get_traffic_alerts: async () => {
+    const resp = await fetch(`${API_BASE}/siri/2.0/situation-exchange.json?datasetId=${DATASET_ID}`);
+    if (!resp.ok) return `Erreur HTTP ${resp.status}`;
+    const text = await resp.text();
+    if (!text.trim()) return '✅ Aucune perturbation en cours sur le réseau Naolib.';
+    try {
+      const data = JSON.parse(text);
+      const situations = data.situations || [];
+      if (!situations.length) return '✅ Aucune perturbation en cours sur le réseau Naolib.';
+      return situations.slice(0, 10).map(s => {
+        const sev = (s.severity || 'info').toLowerCase();
+        const icon = { critical: '🔴', high: '🟠', medium: '🟡', normal: 'ℹ️' }[sev] || 'ℹ️';
+        const summary = s.summary || s.description || '';
+        const refs = (s.lineRefs || []).map(r => `\`${r}\``).join(', ') || 'tout le réseau';
+        return `${icon} **${summary}**\n   ↳ Lignes: ${refs}`;
+      }).join('\n\n');
+    } catch {
+      return `Réponse brute: ${text.slice(0, 1000)}`;
+    }
+  },
+
+  get_general_messages: async () => {
+    const resp = await fetch(`${API_BASE}/siri/2.0/general-message.json?datasetId=${DATASET_ID}`);
+    if (!resp.ok) return `Erreur HTTP ${resp.status}`;
+    const text = await resp.text();
+    if (!text.trim()) return '📢 Aucun message général en cours.';
+    try {
+      const data = JSON.parse(text);
+      const msgs = data.messages || data.generalMessages || [];
+      if (!msgs.length) return '📢 Aucun message général en cours.';
+      return msgs.slice(0, 10).map(m => {
+        const summary = m.summary || m.messageText || m.description || '';
+        return `📋 **${summary}**`;
+      }).join('\n\n');
+    } catch {
+      return text.slice(0, 1000);
+    }
+  },
+
+  get_facility_status: async (args) => {
+    const params = new URLSearchParams({ datasetId: DATASET_ID });
+    if (args.stop_id) params.set('MonitoringRef', args.stop_id);
+    const resp = await fetch(`${API_BASE}/siri/2.0/facility-monitoring.json?${params}`);
+    if (!resp.ok) return `Erreur HTTP ${resp.status}`;
+    const text = await resp.text();
+    if (!text.trim()) return '🏗️ Aucun équipement en suivi.';
+    try {
+      const data = JSON.parse(text);
+      const facs = data.facilities || [];
+      if (!facs.length) return '🏗️ Aucun équipement en suivi.';
+      return facs.slice(0, 20).map(f => {
+        const status = (f.operationalStatus || f.status || 'UNKNOWN').toLowerCase();
+        const icon = { operational: '✅', notavailable: '❌', unknown: '❓' }[status] || '❓';
+        const type = f.facilityType || '?';
+        const ref = f.facilityRef || '?';
+        return `${icon} \`${ref}\` — ${type}`;
+      }).join('\n');
+    } catch {
+      return text.slice(0, 1000);
+    }
+  },
+
+  check_api_status: async () => {
+    const resp = await fetch(`${API_BASE}/siri/2.0/general-message.json?datasetId=${DATASET_ID}`);
+    if (resp.ok) return '✅ API Naolib opérationnelle.';
+    return `❌ API non joignable (HTTP ${resp.status})`;
+  },
+
+  get_stop_monitoring: async (args) => {
+    // Requires API key — try without first
+    const stopId = args.stop_id;
+    const ts = new Date().toISOString();
+    const msgId = 'naolib-web-' + Math.random().toString(36).slice(2, 10);
+    const xml = `<?xml version="1.0" encoding="utf-8"?>` +
+      `<Siri xmlns="http://www.siri.org.uk/siri" version="2.0">` +
+      `<ServiceRequest><RequestorRef>naolib-web</RequestorRef>` +
+      `<MessageIdentifier>${msgId}</MessageIdentifier>` +
+      `<RequestTimestamp>${ts}</RequestTimestamp>` +
+      `<StopMonitoringRequest version='2.0'>` +
+      `<MonitoringRef>${stopId}</MonitoringRef>` +
+      `<MaximumStopVisits>${args.maximum_visits || 5}</MaximumStopVisits>` +
+      `</StopMonitoringRequest></ServiceRequest></Siri>`;
+
+    try {
+      const resp = await fetch(`${API_BASE}/anshar/services`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/xml', 'Accept': 'application/xml', 'datasetId': DATASET_ID },
+        body: xml,
+      });
+      if (!resp.ok) return `Erreur HTTP ${resp.status} — cet outil nécessite une clé API.`;
+      const text = await resp.text();
+      if (text.includes('Error') || text.includes('error')) {
+        return `⚠️ Cet outil nécessite une clé API (NAOLIB_API_KEY). Résultat brut: ${text.slice(0, 500)}`;
+      }
+      return text.slice(0, 2000);
+    } catch (e) {
+      return `Erreur réseau — cet outil nécessite une clé API. (${e.message})`;
+    }
+  },
+
+  get_vehicle_monitoring: async (args) => {
+    return `⚠️ Cet outil nécessite une clé API. Ligne: ${args.line_ref}`;
+  },
+
+  get_estimated_timetables: async (args) => {
+    return `⚠️ Cet outil nécessite une clé API. Ligne: ${args.line_ref}`;
+  },
+};
+
+// ── Function calling loop ───────────────────────────────────────────────────
+async function processMessage(userText) {
+  if (isProcessing || !modelLoaded) return;
+  isProcessing = true;
+
+  // Add user message
+  conversationHistory.push({ role: 'user', content: userText });
+  appendMessage('user', userText);
+
+  chatInput.disabled = true;
+  btnSend.disabled = true;
+  chatStatusSub.textContent = 'Réflexion…';
+
+  let maxToolCalls = 5; // Prevent infinite loops
+  let toolCallCount = 0;
+
+  try {
+    while (maxToolCalls-- > 0) {
+      chatStatusSub.textContent = `Réflexion… (appel outil ${toolCallCount})`;
+
+      const response = await wllama.createChatCompletion({
+        messages: conversationHistory,
+        max_tokens: 1024,
+        temperature: 0.3,
+        top_p: 0.9,
+        stop: ['\n```'],
+      });
+
+      let reply = response.choices?.[0]?.message?.content || '';
+      reply = reply.trim();
+
+      // Check for tool call
+      const toolMatch = reply.match(/```json\s*\n?(\{[\s\S]*?\})\s*\n?```/);
+      const directJsonMatch = reply.match(/^\s*(\{[\s\S]*\})\s*$/);
+      const jsonStr = toolMatch?.[1] || directJsonMatch?.[1];
+
+      if (jsonStr) {
+        try {
+          const parsed = JSON.parse(jsonStr);
+          if (parsed.tool && TOOLS[parsed.tool]) {
+            toolCallCount++;
+            toolCallsIndicator.classList.remove('hidden');
+            toolCallsIndicator.classList.add('flex');
+            toolCallsText.textContent = `appel ${parsed.tool}(${JSON.stringify(parsed.arguments)})`;
+
+            appendToolCall(parsed.tool, parsed.arguments);
+
+            const result = await TOOLS[parsed.tool](parsed.arguments || {});
+
+            toolCallsText.textContent = `${parsed.tool} → résultat reçu`;
+
+            conversationHistory.push({
+              role: 'assistant',
+              content: `Tool call: ${parsed.tool}`,
+            });
+            conversationHistory.push({
+              role: 'tool',
+              content: result,
+              name: parsed.tool,
+            });
+
+            appendToolResult(parsed.tool, result);
+            continue; // Let the LLM process the tool result
+          }
+        } catch (e) {
+          console.warn('[tool] JSON parse error:', e);
+        }
+      }
+
+      // No tool call — final response
+      // Clean up any JSON block from the response
+      const cleanReply = reply
+        .replace(/```json\s*\n?\{[\s\S]*?\}\s*\n?```/g, '')
+        .replace(/^\s*\{[\s\S]*\}\s*$/gm, '')
+        .trim();
+
+      if (cleanReply) {
+        conversationHistory.push({ role: 'assistant', content: cleanReply });
+        appendMessage('assistant', cleanReply);
+      }
+      break;
+    }
+
+    if (maxToolCalls <= 0) {
+      conversationHistory.push({ role: 'assistant', content: "Désolé, j'ai atteint le nombre maximum d'appels d'outils." });
+      appendMessage('assistant', "Désolé, j'ai atteint le nombre maximum d'appels d'outils.");
+    }
+  } catch (err) {
+    const errMsg = `Erreur: ${err.message}`;
+    conversationHistory.push({ role: 'assistant', content: errMsg });
+    appendMessage('assistant', errMsg);
+  } finally {
+    isProcessing = false;
+    chatInput.disabled = false;
+    btnSend.disabled = false;
+    chatInput.focus();
+    toolCallsIndicator.classList.add('hidden');
+    toolCallsIndicator.classList.remove('flex');
+    chatStatusSub.textContent = 'Prêt — posez votre question';
+  }
+}
+
+// ── UI helpers ──────────────────────────────────────────────────────────────
+function appendMessage(role, text) {
+  const div = document.createElement('div');
+  div.className = 'fade-in flex gap-3 ' + (role === 'user' ? 'flex-row-reverse' : '');
+
+  const avatar = role === 'user'
+    ? '<div class="w-8 h-8 rounded-lg bg-slate-700 flex-shrink-0 flex items-center justify-center text-slate-300 text-xs">👤</div>'
+    : '<div class="w-8 h-8 rounded-lg bg-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-xs">🚊</div>';
+
+  const bubbleClass = role === 'user'
+    ? 'bg-amber-500/20 rounded-xl rounded-tr-sm text-slate-200'
+    : 'bg-slate-800/80 rounded-xl rounded-tl-sm text-slate-300';
+
+  const formatted = formatText(text);
+
+  div.innerHTML = `
+    ${avatar}
+    <div class="max-w-[80%]">
+      <div class="${bubbleClass} px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap">${formatted}</div>
+    </div>
+  `;
+
+  messagesDiv.appendChild(div);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function appendToolCall(tool, args) {
+  const div = document.createElement('div');
+  div.className = 'fade-in flex gap-3 justify-center';
+  div.innerHTML = `
+    <div class="bg-slate-800/40 border border-slate-700/30 rounded-lg px-3 py-1.5 text-xs mono text-emerald-400">
+      🔧 ${tool}(${JSON.stringify(args)})
+    </div>
+  `;
+  messagesDiv.appendChild(div);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function appendToolResult(tool, result) {
+  const div = document.createElement('div');
+  div.className = 'fade-in flex gap-3 justify-center';
+  const preview = result.length > 200 ? result.slice(0, 200) + '…' : result;
+  div.innerHTML = `
+    <div class="bg-slate-800/40 border border-slate-700/30 rounded-lg px-3 py-1.5 text-xs mono text-blue-400 max-w-lg overflow-hidden">
+      ✅ ${tool} → ${escapeHtml(preview)}
+    </div>
+  `;
+  messagesDiv.appendChild(div);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function formatText(text) {
+  // Basic markdown-like formatting
+  return escapeHtml(text)
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code class="mono bg-slate-900/60 px-1.5 py-0.5 rounded text-amber-400 text-xs">$1</code>');
+}
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text;
+  return d.innerHTML;
+}
+
+// ── Global functions (exposed for inline handlers) ──────────────────────────
+window.loadModel = loadModel;
+
+window.sendMessage = function(e) {
+  e.preventDefault();
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = '';
+  processMessage(text);
+};
+
+window.askExample = function(btn) {
+  const text = btn.textContent;
+  chatInput.value = text;
+  processMessage(text);
+};
+
+</script>
+</body>
+</html>
