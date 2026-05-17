@@ -19,6 +19,10 @@
     .glow { box-shadow: 0 0 20px rgba(245, 158, 11, 0.15); }
     .tool-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 500; }
     .progress-ring { transition: stroke-dashoffset 0.3s; }
+    #progress-wrap { position: relative; }
+    #progress-pct { position: absolute; right: 0; top: -18px; font-size: 0.65rem; color: #f59e0b; font-weight: 500; }
+    #progress-details { font-size: 0.65rem; color: #94a3b8; white-space: nowrap; }
+    .download-msg { animation: fadeIn 0.3s ease-out; }
   </style>
 </head>
 <body class="min-h-screen">
@@ -84,9 +88,11 @@
     <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
     <span id="status-text" class="text-sm text-slate-400">Modèle non chargé — cliquez sur «&nbsp;Charger le modèle&nbsp;» pour commencer</span>
     <div id="progress-wrap" class="hidden flex-1 max-w-xs ml-auto">
-      <div class="w-full bg-slate-800 rounded-full h-1.5">
-        <div id="progress-bar" class="bg-amber-500 h-1.5 rounded-full transition-all duration-300" style="width:0%"></div>
+      <span id="progress-pct">0%</span>
+      <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-2 rounded-full transition-all duration-300" style="width:0%"></div>
       </div>
+      <span id="progress-details" class="ml-2 text-[0.6rem] text-slate-500 mono">0 / 0 Mo</span>
     </div>
     <button id="btn-load" onclick="loadModel()" class="ml-auto text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap">
       ⚡ Charger le modèle
@@ -306,6 +312,8 @@ const statusDot = document.getElementById('status-dot');
 const statusText = document.getElementById('status-text');
 const progressWrap = document.getElementById('progress-wrap');
 const progressBar = document.getElementById('progress-bar');
+const progressPct = document.getElementById('progress-pct');
+const progressDetails = document.getElementById('progress-details');
 const btnLoad = document.getElementById('btn-load');
 const chatInput = document.getElementById('chat-input');
 const btnSend = document.getElementById('btn-send');
@@ -335,14 +343,27 @@ async function loadStopsIndex() {
   }
 }
 
+// ── Helper: format bytes to human-readable ────────────────────────────────
+function formatBytes(bytes) {
+  if (bytes === 0) return '0 Mo';
+  const mb = bytes / (1024 * 1024);
+  return mb.toFixed(mb >= 100 ? 0 : 1) + ' Mo';
+}
+
 // ── Model loading ───────────────────────────────────────────────────────────
 async function loadModel() {
   btnLoad.disabled = true;
   btnLoad.textContent = '⏳ Chargement…';
   statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 pulse-dot';
-  statusText.textContent = 'Téléchargement du modèle Qwen2.5-3B…';
+  statusText.textContent = 'Initialisation du téléchargement…';
   progressWrap.classList.remove('hidden');
   progressWrap.classList.add('flex');
+  progressBar.style.width = '0%';
+  progressPct.textContent = '0%';
+  progressDetails.textContent = '0 / — Mo';
+
+  // Show download message in chat
+  appendDownloadMessage();
 
   try {
     wllama = new Wllama(WASM_PATHS, {
@@ -353,10 +374,16 @@ async function loadModel() {
     await wllama.loadModelFromHF(
       { repo: HF_REPO, file: HF_FILE },
       {
-        progressCallback: ({ loaded, total }) => {
+        progressCallback: (progress) => {
+          const loaded = progress.loaded || 0;
+          const total = progress.total || 0;
           const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
           progressBar.style.width = pct + '%';
+          progressPct.textContent = pct + '%';
+          progressDetails.textContent = `${formatBytes(loaded)} / ${formatBytes(total)}`;
           statusText.textContent = `Téléchargement ${HF_FILE} — ${pct}%`;
+          // Update the chat download message in place
+          updateDownloadMessage(pct, loaded, total);
         },
       }
     );
@@ -371,6 +398,9 @@ async function loadModel() {
     btnSend.disabled = false;
     chatStatusSub.textContent = 'Prêt — posez votre question';
 
+    // Mark download as complete in chat
+    completeDownloadMessage();
+
     // Preload stops index
     loadStopsIndex();
 
@@ -382,8 +412,10 @@ async function loadModel() {
   } catch (err) {
     statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
     statusText.textContent = 'Erreur: ' + err.message;
+    progressWrap.classList.add('hidden');
     btnLoad.disabled = false;
     btnLoad.textContent = '⚡ Réessayer';
+    failDownloadMessage(err.message);
   }
 }
 
@@ -746,6 +778,92 @@ function escapeHtml(text) {
   const d = document.createElement('div');
   d.textContent = text;
   return d.innerHTML;
+}
+
+// ── Download progress message in chat ─────────────────────────────────────
+let downloadMsgEl = null;
+
+function appendDownloadMessage() {
+  const div = document.createElement('div');
+  div.className = 'fade-in flex gap-3 justify-center download-msg';
+  div.id = 'download-progress-msg';
+  div.innerHTML = `
+    <div class="bg-slate-800/60 border border-amber-500/30 rounded-lg px-4 py-3 max-w-sm w-full">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+        <span class="text-xs font-medium text-amber-400">Téléchargement du modèle</span>
+      </div>
+      <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden mb-1">
+        <div id="chat-progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-2.5 rounded-full transition-all duration-300" style="width:0%"></div>
+      </div>
+      <div class="flex justify-between items-center">
+        <span id="chat-progress-pct" class="text-[0.65rem] mono text-amber-400">0%</span>
+        <span id="chat-progress-size" class="text-[0.65rem] mono text-slate-500">0 / — Mo</span>
+      </div>
+      <p class="text-[0.6rem] text-slate-500 mt-1.5">~2 Go · Qwen2.5-3B-Instruct · GGUF Q4_K_M</p>
+    </div>
+  `;
+  // Insert after the welcome message (first child of messages)
+  const welcomeMsg = messagesDiv.firstElementChild;
+  if (welcomeMsg) {
+    messagesDiv.insertBefore(div, welcomeMsg.nextSibling);
+  } else {
+    messagesDiv.appendChild(div);
+  }
+  downloadMsgEl = div;
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function updateDownloadMessage(pct, loaded, total) {
+  const bar = document.getElementById('chat-progress-bar');
+  const pctEl = document.getElementById('chat-progress-pct');
+  const sizeEl = document.getElementById('chat-progress-size');
+  if (bar) bar.style.width = pct + '%';
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (sizeEl) sizeEl.textContent = `${formatBytes(loaded)} / ${formatBytes(total)}`;
+}
+
+function completeDownloadMessage() {
+  const bar = document.getElementById('chat-progress-bar');
+  const pctEl = document.getElementById('chat-progress-pct');
+  const sizeEl = document.getElementById('chat-progress-size');
+  if (bar) { bar.style.width = '100%'; bar.className = 'bg-emerald-500 h-2.5 rounded-full transition-all duration-500'; }
+  if (pctEl) pctEl.textContent = '100%';
+  if (sizeEl) sizeEl.textContent = 'Téléchargement terminé ✓';
+  // Update the container styling
+  const container = document.getElementById('download-progress-msg');
+  if (container) {
+    const inner = container.querySelector('div');
+    if (inner) {
+      inner.className = 'bg-emerald-500/10 border border-emerald-500/30 rounded-lg px-4 py-3 max-w-sm w-full';
+      const label = inner.querySelector('.text-amber-400');
+      if (label) { label.textContent = 'Modèle chargé ✓'; label.className = 'text-xs font-medium text-emerald-400'; }
+      const dot = inner.querySelector('.pulse-dot');
+      if (dot) { dot.className = 'w-2 h-2 rounded-full bg-emerald-400 inline-block'; dot.style.animation = 'none'; }
+      const info = inner.querySelector('.text-slate-500.mt-1\\.5');
+      if (info) info.textContent = 'Prêt à converser 🚀';
+    }
+  }
+}
+
+function failDownloadMessage(errorMsg) {
+  const bar = document.getElementById('chat-progress-bar');
+  const pctEl = document.getElementById('chat-progress-pct');
+  const sizeEl = document.getElementById('chat-progress-size');
+  if (bar) { bar.className = 'bg-red-500 h-2.5 rounded-full transition-all duration-500'; bar.style.width = '100%'; }
+  if (pctEl) pctEl.textContent = 'Échec';
+  if (sizeEl) sizeEl.textContent = errorMsg?.slice(0, 60) || 'Erreur inconnue';
+  const container = document.getElementById('download-progress-msg');
+  if (container) {
+    const inner = container.querySelector('div');
+    if (inner) {
+      inner.className = 'bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3 max-w-sm w-full';
+      const label = inner.querySelector('.text-amber-400');
+      if (label) { label.textContent = 'Échec du téléchargement ✗'; label.className = 'text-xs font-medium text-red-400'; }
+      const dot = inner.querySelector('.pulse-dot');
+      if (dot) { dot.className = 'w-2 h-2 rounded-full bg-red-400 inline-block'; dot.style.animation = 'none'; }
+    }
+  }
 }
 
 // ── Global functions (exposed for inline handlers) ──────────────────────────
