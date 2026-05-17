@@ -75,9 +75,35 @@
 
 <section class="mt-20 border-t border-slate-800 pt-12">
   <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">Serveurs MCP</h3>
-  <div class="flex flex-wrap gap-3">
-    <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">Naolib MCP</span>
-    <a href="https://pypi.org/project/naolib-mcp/" class="text-sm font-semibold text-amber-400 hover:text-amber-300">Lien PyPI</a>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Agentic Memory MCP -->
+    <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+      <div class="flex items-start justify-between mb-3">
+        <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
+        <span class="flex gap-2 shrink-0">
+          <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full font-medium">Hermes Provider</span>
+        </span>
+      </div>
+      <p class="text-slate-400 text-sm mb-4">Knowledge Graph persistant avec scoring pour agents IA. Fonctionne en standalone, serveur MCP, ou provider natif Hermes Agent.</p>
+      <div class="flex gap-3 text-sm">
+        <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
+        <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
+      </div>
+    </a>
+    <!-- Naolib MCP -->
+    <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+      <div class="flex items-start justify-between mb-3">
+        <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
+        <span class="flex gap-2 shrink-0">
+          <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">Transport Temps Réel</span>
+        </span>
+      </div>
+      <p class="text-slate-400 text-sm mb-4">Serveur MCP pour les données temps réel des transports en commun de Nantes (Naolib). SIRI, horaires, véhicules, alertes.</p>
+      <div class="flex gap-3 text-sm">
+        <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
+        <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
+      </div>
+    </a>
   </div>
 </section>
 </main>
