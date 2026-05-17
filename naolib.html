@@ -372,9 +372,7 @@ console.log('[naolib] wllama imported successfully');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
-  default: {
-    'single-thread/wllama.wasm': './wasm/wllama.wasm',
-  },
+  'single-thread/wllama.wasm': './wasm/wllama.wasm',
 };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
@@ -451,8 +449,7 @@ async function loadModel() {
   try {
     console.log('[naolib] Creating Wllama instance…');
     statusText.textContent = 'Chargement du moteur Wasm…';
-    wllama = new Wllama({
-      pathConfig: WASM_PATHS,
+    wllama = new Wllama(WASM_PATHS, {
       logger: LoggerWithoutDebug,
       parallelDownloads: 3,
     });
