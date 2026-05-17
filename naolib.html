@@ -86,7 +86,7 @@
 <section class="max-w-5xl mx-auto px-4 md:px-6 pb-3 md:pb-4">
   <div id="status-bar" class="bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-3 md:px-4 md:py-3 flex flex-wrap items-center gap-2 md:gap-3">
     <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-600 flex-shrink-0"></div>
-    <span id="status-text" class="text-xs md:text-sm text-slate-400 flex-1 min-w-0 truncate">Modèle non chargé — cliquez sur «&nbsp;Charger le modèle&nbsp;» pour commencer</span>
+    <span id="status-text" class="text-xs md:text-sm text-slate-400 flex-1 min-w-0 truncate">Moteur IA en chargement…</span>
     <div id="progress-wrap" class="hidden w-full order-3 mt-2">
       <div class="flex items-center gap-2 mb-1">
         <span id="progress-pct" class="text-xs font-medium text-amber-400 tabular-nums">0%</span>
@@ -96,7 +96,7 @@
         <div id="progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-2.5 rounded-full transition-all duration-300" style="width:0%"></div>
       </div>
     </div>
-    <button id="btn-load" onclick="loadModel()" class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap flex-shrink-0">
+    <button id="btn-load" onclick="_loadModelClick()" class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap flex-shrink-0">
       ⚡ Charger le modèle
     </button>
   </div>
@@ -286,35 +286,91 @@
 </footer>
 
 <!-- ═══════════════════ WLLAMA + MCP ENGINE ═══════════════════ -->
-<script type="module">
-// ── Global error handler ──────────────────────────────────────────────────
-window.addEventListener('error', (e) => {
-  console.error('[naolib] Global error:', e.message, e.filename, e.lineno);
-  const statusDot = document.getElementById('status-dot');
-  const statusText = document.getElementById('status-text');
-  if (statusDot && statusText) {
-    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
-    statusText.textContent = 'Erreur JS: ' + e.message;
-  }
-  const btnLoad = document.getElementById('btn-load');
-  if (btnLoad) {
-    btnLoad.disabled = false;
-    btnLoad.textContent = '⚡ Réessayer';
-  }
-  const progressWrap = document.getElementById('progress-wrap');
-  if (progressWrap) { progressWrap.classList.add('hidden'); progressWrap.classList.remove('flex'); }
-});
 
+<!-- Immediate init script — runs before module loads -->
+<script>
+// Show loading state immediately
+(function() {
+  const statusText = document.getElementById('status-text');
+  if (statusText) statusText.textContent = 'Moteur IA en chargement…';
+
+  // Detect if module fails to load within 15 seconds
+  setTimeout(function() {
+    if (!window.loadModel) {
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+      if (statusDot) statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
+      if (statusText) statusText.textContent = 'Erreur : le moteur IA n\'a pas pu être chargé. Rechargez la page.';
+      console.error('[naolib] Module failed to load within 15s');
+    }
+  }, 15000);
+})();
+
+// Synchronous click handler — provides immediate visual feedback
+window._loadModelClick = function() {
+  const btn = document.getElementById('btn-load');
+  if (!btn || btn.disabled) return;
+
+  // Immediate visual feedback - spinner on button
+  btn.disabled = true;
+  btn.innerHTML = '<span class="inline-block w-3 h-3 border-2 border-amber-400/30 border-t-amber-400 rounded-full spinner mr-1"></span>Chargement…';
+
+  const statusText = document.getElementById('status-text');
+  const progressWrap = document.getElementById('progress-wrap');
+
+  if (statusText) statusText.textContent = 'Initialisation…';
+  if (progressWrap) {
+    progressWrap.classList.remove('hidden');
+    progressWrap.classList.add('flex');
+    const progressBar = document.getElementById('progress-bar');
+    const progressPct = document.getElementById('progress-pct');
+    const progressDetails = document.getElementById('progress-details');
+    if (progressBar) progressBar.style.width = '0%';
+    if (progressPct) progressPct.textContent = '0%';
+    if (progressDetails) progressDetails.textContent = '0 / — Mo';
+  }
+
+  // Call the module's loadModel once it's ready
+  if (window.loadModel) {
+    window.loadModel();
+  } else {
+    // Module not loaded yet — poll briefly
+    let attempts = 0;
+    const interval = setInterval(function() {
+      attempts++;
+      if (window.loadModel) {
+        clearInterval(interval);
+        window.loadModel();
+      } else if (attempts > 60) {
+        clearInterval(interval);
+        if (statusText) statusText.textContent = 'Erreur : le moteur IA n\'a pas pu charger. Vérifiez votre connexion.';
+        const statusDot = document.getElementById('status-dot');
+        if (statusDot) statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '⚡ Réessayer';
+        }
+      }
+    }, 500);
+  }
+};
+</script>
+
+<script type="module">
 // ── wllama import from CDN ──────────────────────────────────────────────────
 import { Wllama, LoggerWithoutDebug } from 'https://esm.sh/@wllama/wllama@3.0.0';
 
-// Log successful import
 console.log('[naolib] wllama imported successfully');
+
+// Engine ready — update status
+(function() {
+  const statusText = document.getElementById('status-text');
+  if (statusText) statusText.textContent = 'Moteur prêt — cliquez sur « Charger le modèle » pour commencer';
+})();
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
-  'single-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/single-thread/wllama.wasm',
-  'multi-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/multi-thread/wllama.wasm',
+  'single-thread/wllama.wasm': './wasm/wllama.wasm',
 };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
@@ -385,26 +441,17 @@ async function loadModel() {
   const progressPct = document.getElementById('progress-pct');
   const progressDetails = document.getElementById('progress-details');
 
-  // Immediate visual feedback
-  btnLoad.disabled = true;
-  btnLoad.textContent = '⏳ Chargement…';
-  statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 pulse-dot flex-shrink-0';
-  statusText.textContent = 'Initialisation…';
-  progressWrap.classList.remove('hidden');
-  progressWrap.classList.add('flex');
-  progressBar.style.width = '0%';
-  progressPct.textContent = '0%';
-  progressDetails.textContent = '0 / — Mo';
-
   // Show download message in chat
   appendDownloadMessage();
 
   try {
     console.log('[naolib] Creating Wllama instance…');
+    statusText.textContent = 'Chargement du moteur Wasm…';
     wllama = new Wllama(WASM_PATHS, {
       logger: LoggerWithoutDebug,
-      parallelDownloads: 4,
+      parallelDownloads: 3,
     });
+    console.log('[naolib] Wllama instance created');
 
     console.log('[naolib] Loading model from HuggingFace…');
     statusText.textContent = 'Téléchargement du modèle Qwen3-0.6B…';
@@ -419,7 +466,7 @@ async function loadModel() {
           progressBar.style.width = pct + '%';
           progressPct.textContent = pct + '%';
           progressDetails.textContent = `${formatBytes(loaded)} / ${formatBytes(total)}`;
-          statusText.textContent = `Téléchargement ${HF_FILE} — ${pct}%`;
+          statusText.textContent = `Téléchargement — ${pct}%`;
           updateDownloadMessage(pct, loaded, total);
         },
       }
