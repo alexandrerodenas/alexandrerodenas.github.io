@@ -372,7 +372,7 @@ console.log('[naolib] wllama imported successfully');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
-  default: './wasm/wllama.wasm',
+  default: 'https://cdn.jsdelivr.net/npm/@wllama/wllama@3.1.1/src/wasm/wllama.wasm',
 };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
@@ -495,13 +495,21 @@ async function loadModel() {
     }];
   } catch (err) {
     console.error('[naolib] Model loading failed:', err);
+    const msg = err.message || String(err);
+    let userMsg = 'Erreur: ' + msg;
+    // Specific guidance for common failures
+    if (msg.includes('SharedArrayBuffer') || msg.includes('module is not') || msg.includes('Import') || msg.includes('WebAssembly')) {
+      userMsg = 'Erreur WebAssembly — votre navigateur ne supporte pas l\'exécution IA locale. Essayez Chrome ou Edge récent.';
+    } else if (msg.includes('abort') || msg.includes('Abort')) {
+      userMsg = 'Le moteur IA a été interrompu. Actualisez la page et réessayez.';
+    }
     statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
-    statusText.textContent = 'Erreur: ' + err.message;
+    statusText.textContent = userMsg;
     progressWrap.classList.add('hidden');
     progressWrap.classList.remove('flex');
     btnLoad.disabled = false;
     btnLoad.textContent = '⚡ Réessayer';
-    failDownloadMessage(err.message);
+    failDownloadMessage(userMsg);
   }
 }
 
