@@ -372,7 +372,9 @@ console.log('[naolib] wllama imported successfully');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
-  'single-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/single-thread/wllama.wasm',
+  default: {
+    'single-thread/wllama.wasm': './wasm/wllama.wasm',
+  },
 };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
