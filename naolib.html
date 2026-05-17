@@ -28,24 +28,24 @@
 <body class="min-h-screen">
 
 <!-- ═══════════════════ NAV ═══════════════════ -->
-<nav class="max-w-5xl mx-auto p-6 flex justify-between items-center border-b border-slate-800/50">
-  <a href="index.html" class="flex items-center gap-3 group">
+<nav class="max-w-5xl mx-auto px-4 md:px-6 py-4 md:py-6 flex justify-between items-center border-b border-slate-800/50">
+  <a href="index.html" class="flex items-center gap-2 md:gap-3 group">
     <svg class="w-5 h-5 text-slate-500 group-hover:text-amber-400 transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M21 12H3"/></svg>
-    <span class="text-sm text-slate-500 group-hover:text-slate-300 transition">Retour à l'accueil</span>
+    <span class="text-xs md:text-sm text-slate-500 group-hover:text-slate-300 transition">Retour</span>
   </a>
   <a href="https://github.com/alexandrerodenas/naolib-mcp" target="_blank" class="text-slate-400 hover:text-amber-400 transition flex items-center gap-2">
     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-    naolib-mcp
+    <span class="hidden sm:inline">naolib-mcp</span>
   </a>
 </nav>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
-<header class="max-w-5xl mx-auto px-6 pt-10 pb-6">
+<header class="max-w-5xl mx-auto px-4 md:px-6 pt-6 md:pt-10 pb-4 md:pb-6">
   <div class="flex items-center gap-3 mb-3">
-    <span class="text-amber-400 text-2xl">🚊</span>
-    <h1 class="text-3xl font-bold text-white tracking-tight">Naolib MCP — Démo Interactive</h1>
+    <span class="text-amber-400 text-xl md:text-2xl">🚊</span>
+    <h1 class="text-xl md:text-3xl font-bold text-white tracking-tight">Naolib MCP — Démo Interactive</h1>
   </div>
-  <p class="text-slate-400 text-lg max-w-2xl">
+  <p class="text-slate-400 text-sm md:text-lg max-w-2xl">
     Interrogez les transports en temps réel de Nantes (bus, tramway) en langage naturel.
     Un modèle d'IA local (<strong class="text-slate-200">Qwen2.5-3B</strong>) tourne <strong class="text-slate-200">100&nbsp;% dans votre navigateur</strong> via WebAssembly,
     choisit les outils MCP appropriés, et vous répond en français.
@@ -53,9 +53,9 @@
 </header>
 
 <!-- ═══════════════════ EXPLAINERS ═══════════════════ -->
-<section class="max-w-5xl mx-auto px-6 pb-8">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+<section class="max-w-5xl mx-auto px-4 md:px-6 pb-4 md:pb-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 md:p-5">
       <div class="text-amber-400 text-lg mb-2">🧠</div>
       <h3 class="text-white font-semibold mb-1">IA Locale (wllama)</h3>
       <p class="text-sm text-slate-400">
@@ -63,7 +63,7 @@
         et s'exécute entièrement dans votre navigateur via WebAssembly — aucun serveur externe, aucune donnée envoyée.
       </p>
     </div>
-    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 md:p-5">
       <div class="text-amber-400 text-lg mb-2">🔧</div>
       <h3 class="text-white font-semibold mb-1">Outils MCP (10 outils)</h3>
       <p class="text-sm text-slate-400">
@@ -71,7 +71,7 @@
         recherche d'arrêts, passages en temps réel, alertes, positions des véhicules, horaires, équipements, etc.
       </p>
     </div>
-    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 md:p-5">
       <div class="text-amber-400 text-lg mb-2">🔄</div>
       <h3 class="text-white font-semibold mb-1">Appel d'outils automatique</h3>
       <p class="text-sm text-slate-400">
@@ -83,74 +83,76 @@
 </section>
 
 <!-- ═══════════════════ STATUS BAR ═══════════════════ -->
-<section class="max-w-5xl mx-auto px-6 pb-4">
-  <div id="status-bar" class="bg-slate-900/80 border border-slate-800 rounded-lg px-4 py-3 flex items-center gap-3">
-    <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-600"></div>
-    <span id="status-text" class="text-sm text-slate-400">Modèle non chargé — cliquez sur «&nbsp;Charger le modèle&nbsp;» pour commencer</span>
-    <div id="progress-wrap" class="hidden flex-1 max-w-xs ml-auto">
-      <span id="progress-pct">0%</span>
-      <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-        <div id="progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+<section class="max-w-5xl mx-auto px-4 md:px-6 pb-3 md:pb-4">
+  <div id="status-bar" class="bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-3 md:px-4 md:py-3 flex flex-wrap items-center gap-2 md:gap-3">
+    <div id="status-dot" class="w-2.5 h-2.5 rounded-full bg-slate-600 flex-shrink-0"></div>
+    <span id="status-text" class="text-xs md:text-sm text-slate-400 flex-1 min-w-0 truncate">Modèle non chargé — cliquez sur «&nbsp;Charger le modèle&nbsp;» pour commencer</span>
+    <div id="progress-wrap" class="hidden w-full order-3 mt-2">
+      <div class="flex items-center gap-2 mb-1">
+        <span id="progress-pct" class="text-xs font-medium text-amber-400 tabular-nums">0%</span>
+        <span id="progress-details" class="text-xs text-slate-500 mono tabular-nums">0 / — Mo</span>
       </div>
-      <span id="progress-details" class="ml-2 text-[0.6rem] text-slate-500 mono">0 / 0 Mo</span>
+      <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+        <div id="progress-bar" class="bg-gradient-to-r from-amber-600 to-amber-400 h-2.5 rounded-full transition-all duration-300" style="width:0%"></div>
+      </div>
     </div>
-    <button id="btn-load" onclick="loadModel()" class="ml-auto text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap">
+    <button id="btn-load" onclick="loadModel()" class="text-xs bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-lg px-3 py-1.5 hover:bg-amber-500/30 transition whitespace-nowrap flex-shrink-0">
       ⚡ Charger le modèle
     </button>
   </div>
 </section>
 
 <!-- ═══════════════════ CHAT ═══════════════════ -->
-<section class="max-w-5xl mx-auto px-6 pb-6">
+<section class="max-w-5xl mx-auto px-4 md:px-6 pb-4 md:pb-6">
   <div class="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden glow">
     <!-- Chat header -->
-    <div class="border-b border-slate-800 px-5 py-3 flex items-center gap-3">
-      <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 text-sm">🚊</div>
-      <div>
+    <div class="border-b border-slate-800 px-4 md:px-5 py-3 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 text-sm flex-shrink-0">🚊</div>
+      <div class="min-w-0">
         <div class="text-sm font-medium text-white">Naolib Assistant</div>
-        <div id="chat-status-sub" class="text-xs text-slate-500">En attente du modèle…</div>
+        <div id="chat-status-sub" class="text-xs text-slate-500 truncate">En attente du modèle…</div>
       </div>
-      <div id="tool-calls-indicator" class="ml-auto hidden items-center gap-1">
+      <div id="tool-calls-indicator" class="ml-auto hidden items-center gap-1 flex-shrink-0">
         <span class="pulse-dot w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
         <span class="text-xs text-emerald-400 mono" id="tool-calls-text"></span>
       </div>
     </div>
 
     <!-- Messages area -->
-    <div id="messages" class="h-[450px] overflow-y-auto p-5 space-y-4 scrollbar-thin">
-      <div class="fade-in flex gap-3">
-        <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-xs">🚊</div>
-        <div class="max-w-[80%]">
-          <div class="bg-slate-800/80 rounded-xl rounded-tl-sm px-4 py-3 text-sm text-slate-300 leading-relaxed">
-            <p>Bonjour ! 👋 Je suis connecté aux données <strong>Naolib</strong> (transports de Nantes Métropole).</p>
-            <p class="mt-2">Posez-moi une question en langage naturel, par exemple :</p>
-            <div class="mt-2 space-y-1">
-              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quand passe le prochain tram à Commerce ?</button>
-              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Y a-t-il des perturbations sur le réseau ?</button>
-              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quelles sont les lignes de bus disponibles ?</button>
-              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Trouve-moi un arrêt près de Babinière</button>
-              <button onclick="askExample(this)" class="block w-full text-left text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Les ascenseurs fonctionnent-ils à Gare Sud ?</button>
-            </div>
+    <div id="messages" class="h-[300px] sm:h-[380px] md:h-[450px] overflow-y-auto p-4 md:p-5 space-y-4 scrollbar-thin">
+    <div class="fade-in flex gap-3">
+      <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex-shrink-0 flex items-center justify-center text-amber-400 text-xs">🚊</div>
+      <div class="max-w-[85%] md:max-w-[80%]">
+        <div class="bg-slate-800/80 rounded-xl rounded-tl-sm px-3 md:px-4 py-3 text-sm text-slate-300 leading-relaxed">
+          <p>Bonjour ! 👋 Je suis connecté aux données <strong>Naolib</strong> (transports de Nantes Métropole).</p>
+          <p class="mt-2">Posez-moi une question en langage naturel, par exemple :</p>
+          <div class="mt-2 space-y-1.5">
+            <button onclick="askExample(this)" class="block w-full text-left text-[0.65rem] md:text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-2.5 md:px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quand passe le prochain tram à Commerce ?</button>
+            <button onclick="askExample(this)" class="block w-full text-left text-[0.65rem] md:text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-2.5 md:px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Y a-t-il des perturbations sur le réseau ?</button>
+            <button onclick="askExample(this)" class="block w-full text-left text-[0.65rem] md:text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-2.5 md:px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Quelles sont les lignes de bus disponibles ?</button>
+            <button onclick="askExample(this)" class="block w-full text-left text-[0.65rem] md:text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-2.5 md:px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Trouve-moi un arrêt près de Babinière</button>
+            <button onclick="askExample(this)" class="block w-full text-left text-[0.65rem] md:text-xs mono text-amber-400/80 hover:text-amber-400 bg-slate-900/60 rounded px-2.5 md:px-3 py-1.5 border border-slate-700/50 hover:border-amber-500/30 transition">Les ascenseurs fonctionnent-ils à Gare Sud ?</button>
           </div>
         </div>
       </div>
     </div>
+    </div>
 
     <!-- Input area -->
-    <div class="border-t border-slate-800 p-4">
-      <form id="chat-form" onsubmit="sendMessage(event)" class="flex gap-3">
+    <div class="border-t border-slate-800 p-3 md:p-4">
+      <form id="chat-form" onsubmit="sendMessage(event)" class="flex gap-2 md:gap-3">
         <input
           id="chat-input"
           type="text"
           placeholder="Posez votre question sur les transports nantais…"
-          class="flex-1 bg-slate-800/60 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          class="flex-1 min-w-0 bg-slate-800/60 border border-slate-700/50 rounded-xl px-3 md:px-4 py-3 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition disabled:opacity-50 disabled:cursor-not-allowed"
           disabled
           autocomplete="off"
         />
         <button
           id="btn-send"
           type="submit"
-          class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium rounded-xl px-5 py-3 text-sm transition disabled:opacity-40 disabled:cursor-not-allowed"
+          class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-medium rounded-xl px-4 md:px-5 py-3 text-sm transition disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
           disabled
         >
           Envoyer
@@ -161,7 +163,7 @@
 </section>
 
 <!-- ═══════════════════ TOOLS REFERENCE ═══════════════════ -->
-<section class="max-w-5xl mx-auto px-6 pb-8">
+<section class="max-w-5xl mx-auto px-4 md:px-6 pb-4 md:pb-8">
   <details class="bg-slate-900/40 border border-slate-800/60 rounded-xl">
     <summary class="px-5 py-4 cursor-pointer text-sm font-medium text-slate-300 hover:text-white transition select-none">
       📋 Voir les 10 outils MCP disponibles
@@ -239,7 +241,7 @@
 </section>
 
 <!-- ═══════════════════ ARCHITECTURE ═══════════════════ -->
-<section class="max-w-5xl mx-auto px-6 pb-12">
+<section class="max-w-5xl mx-auto px-4 md:px-6 pb-8 md:pb-12">
   <details class="bg-slate-900/40 border border-slate-800/60 rounded-xl">
     <summary class="px-5 py-4 cursor-pointer text-sm font-medium text-slate-300 hover:text-white transition select-none">
       🏗️ Comment ça marche ? (Architecture)
@@ -278,15 +280,36 @@
 </section>
 
 <!-- ═══════════════════ FOOTER ═══════════════════ -->
-<footer class="max-w-5xl mx-auto px-6 pb-8 border-t border-slate-800/50 pt-6 flex justify-between items-center text-xs text-slate-500">
+<footer class="max-w-5xl mx-auto px-4 md:px-6 pb-8 border-t border-slate-800/50 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-slate-500">
   <span>© 2025 Alexandre Rodenas — naolib-mcp (MCP SIRI Naolib Nantes)</span>
   <a href="https://github.com/alexandrerodenas/naolib-mcp" class="hover:text-amber-400 transition">Voir sur GitHub →</a>
 </footer>
 
 <!-- ═══════════════════ WLLAMA + MCP ENGINE ═══════════════════ -->
 <script type="module">
+// ── Global error handler ──────────────────────────────────────────────────
+window.addEventListener('error', (e) => {
+  console.error('[naolib] Global error:', e.message, e.filename, e.lineno);
+  const statusDot = document.getElementById('status-dot');
+  const statusText = document.getElementById('status-text');
+  if (statusDot && statusText) {
+    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
+    statusText.textContent = 'Erreur JS: ' + e.message;
+  }
+  const btnLoad = document.getElementById('btn-load');
+  if (btnLoad) {
+    btnLoad.disabled = false;
+    btnLoad.textContent = '⚡ Réessayer';
+  }
+  const progressWrap = document.getElementById('progress-wrap');
+  if (progressWrap) { progressWrap.classList.add('hidden'); progressWrap.classList.remove('flex'); }
+});
+
 // ── wllama import from CDN ──────────────────────────────────────────────────
 import { Wllama, LoggerWithoutDebug } from 'https://esm.sh/@wllama/wllama@3.0.0';
+
+// Log successful import
+console.log('[naolib] wllama imported successfully');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
@@ -352,10 +375,21 @@ function formatBytes(bytes) {
 
 // ── Model loading ───────────────────────────────────────────────────────────
 async function loadModel() {
+  console.log('[naolib] loadModel() called');
+
+  const btnLoad = document.getElementById('btn-load');
+  const statusDot = document.getElementById('status-dot');
+  const statusText = document.getElementById('status-text');
+  const progressWrap = document.getElementById('progress-wrap');
+  const progressBar = document.getElementById('progress-bar');
+  const progressPct = document.getElementById('progress-pct');
+  const progressDetails = document.getElementById('progress-details');
+
+  // Immediate visual feedback
   btnLoad.disabled = true;
   btnLoad.textContent = '⏳ Chargement…';
-  statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 pulse-dot';
-  statusText.textContent = 'Initialisation du téléchargement…';
+  statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 pulse-dot flex-shrink-0';
+  statusText.textContent = 'Initialisation…';
   progressWrap.classList.remove('hidden');
   progressWrap.classList.add('flex');
   progressBar.style.width = '0%';
@@ -366,10 +400,14 @@ async function loadModel() {
   appendDownloadMessage();
 
   try {
+    console.log('[naolib] Creating Wllama instance…');
     wllama = new Wllama(WASM_PATHS, {
       logger: LoggerWithoutDebug,
       parallelDownloads: 4,
     });
+
+    console.log('[naolib] Loading model from HuggingFace…');
+    statusText.textContent = 'Téléchargement du modèle Qwen2.5-3B…';
 
     await wllama.loadModelFromHF(
       { repo: HF_REPO, file: HF_FILE },
@@ -382,37 +420,36 @@ async function loadModel() {
           progressPct.textContent = pct + '%';
           progressDetails.textContent = `${formatBytes(loaded)} / ${formatBytes(total)}`;
           statusText.textContent = `Téléchargement ${HF_FILE} — ${pct}%`;
-          // Update the chat download message in place
           updateDownloadMessage(pct, loaded, total);
         },
       }
     );
 
+    console.log('[naolib] Model loaded successfully');
     modelLoaded = true;
-    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
+    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 flex-shrink-0';
     statusText.textContent = 'Modèle Qwen2.5-3B chargé et prêt ✓';
     progressWrap.classList.add('hidden');
+    progressWrap.classList.remove('flex');
     btnLoad.textContent = '✓ Prêt';
-    btnLoad.className = 'ml-auto text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg px-3 py-1.5 whitespace-nowrap cursor-default';
+    btnLoad.className = 'text-xs bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg px-3 py-1.5 whitespace-nowrap cursor-default flex-shrink-0';
     chatInput.disabled = false;
     btnSend.disabled = false;
     chatStatusSub.textContent = 'Prêt — posez votre question';
 
-    // Mark download as complete in chat
     completeDownloadMessage();
-
-    // Preload stops index
     loadStopsIndex();
 
-    // Set system prompt
     conversationHistory = [{
       role: 'system',
       content: getSystemPrompt(),
     }];
   } catch (err) {
-    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+    console.error('[naolib] Model loading failed:', err);
+    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-red-500 flex-shrink-0';
     statusText.textContent = 'Erreur: ' + err.message;
     progressWrap.classList.add('hidden');
+    progressWrap.classList.remove('flex');
     btnLoad.disabled = false;
     btnLoad.textContent = '⚡ Réessayer';
     failDownloadMessage(err.message);
@@ -788,9 +825,9 @@ function appendDownloadMessage() {
   div.className = 'fade-in flex gap-3 justify-center download-msg';
   div.id = 'download-progress-msg';
   div.innerHTML = `
-    <div class="bg-slate-800/60 border border-amber-500/30 rounded-lg px-4 py-3 max-w-sm w-full">
+    <div class="bg-slate-800/60 border border-amber-500/30 rounded-lg px-3 py-3 w-full max-w-[90%] sm:max-w-sm">
       <div class="flex items-center gap-2 mb-2">
-        <span class="pulse-dot w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+        <span class="pulse-dot w-2 h-2 rounded-full bg-amber-400 inline-block flex-shrink-0"></span>
         <span class="text-xs font-medium text-amber-400">Téléchargement du modèle</span>
       </div>
       <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden mb-1">
