@@ -372,13 +372,12 @@ console.log('[naolib] wllama imported successfully');
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const WASM_PATHS = {
-  'single-thread/wllama.wasm': './wasm/wllama.wasm',
-  default: 'single-thread/wllama.wasm',
+  'single-thread/wllama.wasm': 'https://esm.sh/@wllama/wllama@3.0.0/esm/single-thread/wllama.wasm',
 };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
 const HF_REPO = 'unsloth/Qwen3-0.6B-GGUF';
-const HF_FILE = 'Qwen3-0.6B-Q4_K_M.gguf'; // ~378 Mo
+const HF_FILE = 'Qwen3-0.6B-Q8_0.gguf'; // ~650 Mo
 
 const API_BASE = 'https://api.okina.fr/gateway/sem/realtime';
 const DATASET_ID = 'NAOLIBORG';
