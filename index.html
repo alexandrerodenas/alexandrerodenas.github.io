@@ -9,61 +9,96 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
     body { font-family: 'Inter', sans-serif; }
+    .lang-btn { transition: all 0.2s; opacity: 0.4; }
+    .lang-btn.active { opacity: 1; transform: scale(1.15); }
+    .lang-btn:hover { opacity: 0.8; }
   </style>
 </head>
 <body class="min-h-screen">
 
 <nav class="max-w-5xl mx-auto p-6 flex justify-between items-center">
   <h1 class="text-xl font-bold tracking-tighter text-white">AR.</h1>
-  <div class="flex gap-6">
+  <div class="flex items-center gap-5">
+    <!-- Language toggle -->
+    <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-full px-2 py-1">
+      <button id="btn-fr" class="lang-btn active text-sm" onclick="switchLang('fr')" title="Français">🇫🇷</button>
+      <button id="btn-en" class="lang-btn text-sm" onclick="switchLang('en')" title="English">🇬🇧</button>
+    </div>
     <a href="https://github.com/alexandrerodenas" class="hover:text-amber-400 transition"><i data-lucide="github"></i></a>
-    <a href="https://fr.linkedin.com/in/rodenasalexandre" class="hover:text-amber-400 transition"><i data-lucide="linkedin"></i></a>
+    <a href="https://www.linkedin.com/in/rodenasalexandre" class="hover:text-amber-400 transition"><i data-lucide="linkedin"></i></a>
     <a href="mailto:rodenas.alexandre@gmail.com" class="hover:text-amber-400 transition"><i data-lucide="mail"></i></a>
   </div>
 </nav>
 
 <main class="max-w-4xl mx-auto px-6 py-12">
   <section class="mb-20">
-    <h2 class="text-5xl font-bold text-white mb-6 tracking-tight">Software Engineer & Agentic Systems Architect.</h2>
+    <h2 class="text-5xl font-bold text-white mb-6 tracking-tight">
+      <span class="lang-fr">Ingénieur Software & Architecte de Systèmes Agentic.</span>
+      <span class="lang-en hidden">Software Engineer & Agentic Systems Architect.</span>
+    </h2>
     <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
-      Crafting autonomous AI workflows and robust web systems. Expert in turning complex requirements into elegant, maintainable codebases with a focus on TDD and modern agentic orchestration.
+      <span class="lang-fr">Je conçois des workflows IA autonomes et des systèmes web robustes. Expert dans la transformation de besoins complexes en codebases élégants et maintenables, avec un focus sur le TDD et l'orchestration agentic moderne.</span>
+      <span class="lang-en hidden">I design autonomous AI workflows and robust web systems. Expert at turning complex requirements into elegant, maintainable codebases with a focus on TDD and modern agentic orchestration.</span>
     </p>
   </section>
 
   <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Projects Grid -->
     <div class="md:col-span-2 mb-8">
-      <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-6">Projets Phares</h3>
+      <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-6">
+        <span class="lang-fr">Projets Phares</span>
+        <span class="lang-en hidden">Featured Projects</span>
+      </h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a href="https://pixo-omega.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
           <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Pixo</h4>
-          <p class="text-slate-400 text-sm">IA locale pour l'organisation de photos privées.</p>
+          <p class="text-slate-400 text-sm">
+            <span class="lang-fr">IA locale pour l'organisation de photos privées.</span>
+            <span class="lang-en hidden">Local AI for organizing private photos.</span>
+          </p>
         </a>
         <a href="https://roadtrip-quiz-omega.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
           <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Roadtrip Quiz</h4>
-          <p class="text-slate-400 text-sm">Quiz interactif avec sélection dynamique de modèles IA.</p>
+          <p class="text-slate-400 text-sm">
+            <span class="lang-fr">Quiz interactif avec sélection dynamique de modèles IA.</span>
+            <span class="lang-en hidden">Interactive quiz with dynamic AI model selection.</span>
+          </p>
         </a>
         <a href="https://icebreaker-quiz-liard.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
           <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Icebreaker Quiz</h4>
-          <p class="text-slate-400 text-sm">Application QCM collaborative pour la géographie.</p>
+          <p class="text-slate-400 text-sm">
+            <span class="lang-fr">Application QCM collaborative pour la géographie.</span>
+            <span class="lang-en hidden">Collaborative multiple-choice app for geography.</span>
+          </p>
         </a>
         <a href="https://ai-battle-royale-blush.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
           <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">AI Battle Royale</h4>
-          <p class="text-slate-400 text-sm">Simulation stratégique propulsée par l'IA.</p>
+          <p class="text-slate-400 text-sm">
+            <span class="lang-fr">Simulation stratégique propulsée par l'IA.</span>
+            <span class="lang-en hidden">AI-powered strategic simulation.</span>
+          </p>
         </a>
         <a href="https://github.com/alexandrerodenas/hiking-mcp-server" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
           <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Hiking MCP Server</h4>
-          <p class="text-slate-400 text-sm">Serveur MCP pour assistants IA spécialisé dans l'outdoor.</p>
+          <p class="text-slate-400 text-sm">
+            <span class="lang-fr">Serveur MCP pour assistants IA spécialisé dans l'outdoor.</span>
+            <span class="lang-en hidden">MCP server for AI assistants focused on outdoor activities.</span>
+          </p>
         </a>
         <a href="https://github.com/alexandrerodenas" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition flex items-center justify-center">
-          <span class="text-slate-400 text-sm font-semibold group-hover:text-amber-400">Voir tous mes projets sur GitHub →</span>
+          <span class="text-slate-400 text-sm font-semibold group-hover:text-amber-400">
+            <span class="lang-fr">Voir tous mes projets sur GitHub →</span>
+            <span class="lang-en hidden">See all my projects on GitHub →</span>
+          </span>
         </a>
       </div>
     </div>
   </section>
 
   <section class="mt-20 border-t border-slate-800 pt-12">
-    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">Expertise & Stack</h3>
+    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">
+      <span class="lang-fr">Expertise & Stack</span>
+      <span class="lang-en hidden">Expertise & Stack</span>
+    </h3>
     <div class="flex flex-wrap gap-3">
       <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">AI Agents (MCP/RAG)</span>
       <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">TypeScript/Next.js</span>
@@ -73,39 +108,54 @@
     </div>
   </section>
 
-<section class="mt-20 border-t border-slate-800 pt-12">
-  <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">Serveurs MCP</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <!-- Agentic Memory MCP -->
-    <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
-      <div class="flex items-start justify-between mb-3">
-        <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
-        <span class="flex gap-2 shrink-0">
-          <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full font-medium">Hermes Provider</span>
-        </span>
-      </div>
-      <p class="text-slate-400 text-sm mb-4">Knowledge Graph persistant avec scoring pour agents IA. Fonctionne en standalone, serveur MCP, ou provider natif Hermes Agent.</p>
-      <div class="flex gap-3 text-sm">
-        <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
-        <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
-      </div>
-    </a>
-    <!-- Naolib MCP -->
-    <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
-      <div class="flex items-start justify-between mb-3">
-        <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
-        <span class="flex gap-2 shrink-0">
-          <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">Transport Temps Réel</span>
-        </span>
-      </div>
-      <p class="text-slate-400 text-sm mb-4">Serveur MCP pour les données temps réel des transports en commun de Nantes (Naolib). SIRI, horaires, véhicules, alertes.</p>
-      <div class="flex gap-3 text-sm">
-        <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
-        <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
-      </div>
-    </a>
-  </div>
-</section>
+  <section class="mt-20 border-t border-slate-800 pt-12">
+    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">
+      <span class="lang-fr">Serveurs MCP</span>
+      <span class="lang-en hidden">MCP Servers</span>
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Agentic Memory MCP -->
+      <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+        <div class="flex items-start justify-between mb-3">
+          <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
+          <span class="flex gap-2 shrink-0">
+            <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-xs rounded-full font-medium">
+              <span class="lang-fr">Provider Hermes</span>
+              <span class="lang-en hidden">Hermes Provider</span>
+            </span>
+          </span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4">
+          <span class="lang-fr">Knowledge Graph persistant avec scoring pour agents IA. Fonctionne en standalone, serveur MCP, ou provider natif Hermes Agent.</span>
+          <span class="lang-en hidden">Persistent Knowledge Graph with scoring for AI agents. Works standalone, as an MCP server, or as a native Hermes Agent provider.</span>
+        </p>
+        <div class="flex gap-3 text-sm">
+          <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
+          <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
+        </div>
+      </a>
+      <!-- Naolib MCP -->
+      <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
+        <div class="flex items-start justify-between mb-3">
+          <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
+          <span class="flex gap-2 shrink-0">
+            <span class="px-2 py-0.5 bg-blue-500/10 text-blue-400 text-xs rounded-full font-medium">
+              <span class="lang-fr">Transport Temps Réel</span>
+              <span class="lang-en hidden">Real-time Transit</span>
+            </span>
+          </span>
+        </div>
+        <p class="text-slate-400 text-sm mb-4">
+          <span class="lang-fr">Serveur MCP pour les données temps réel des transports en commun de Nantes (Naolib). SIRI, horaires, véhicules, alertes.</span>
+          <span class="lang-en hidden">MCP server for real-time public transit data in Nantes (Naolib). SIRI, schedules, vehicles, alerts.</span>
+        </p>
+        <div class="flex gap-3 text-sm">
+          <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="github" class="w-3.5 h-3.5"></i> GitHub</span>
+          <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="package" class="w-3.5 h-3.5"></i> PyPI</a>
+        </div>
+      </a>
+    </div>
+  </section>
 </main>
 
 <footer class="max-w-5xl mx-auto p-6 text-center text-slate-600 text-sm">
@@ -113,6 +163,13 @@
 </footer>
 
 <script>
+  function switchLang(lang) {
+    document.querySelectorAll('.lang-fr').forEach(el => el.classList.toggle('hidden', lang !== 'fr'));
+    document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', lang !== 'en'));
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+  }
   lucide.createIcons();
 </script>
 </body>
