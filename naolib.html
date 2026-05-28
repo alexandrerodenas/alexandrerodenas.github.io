@@ -371,13 +371,13 @@ console.log('[naolib] wllama imported successfully');
 })();
 
 // ── Config ──────────────────────────────────────────────────────────────────
-const WASM_PATHS = {
-  default: 'https://cdn.jsdelivr.net/npm/@wllama/wllama@3.1.1/src/wasm/wllama.wasm',
-};
+// WASM: try local first (faster, no CDN dependency), fallback to jsdelivr CDN
+const WASM_PATHS_LOCAL = { default: './wasm/wllama.wasm' };
+const WASM_PATHS_CDN = { default: 'https://cdn.jsdelivr.net/npm/@wllama/wllama@3.1.1/src/wasm/wllama.wasm' };
 
 // Qwen3-0.6B — lightweight model for browser-based tool calling
 const HF_REPO = 'unsloth/Qwen3-0.6B-GGUF';
-const HF_FILE = 'Qwen3-0.6B-Q4_K_M.gguf'; // ~380 Mo
+const HF_FILE = 'Qwen3-0.6B-Q8_0.gguf'; // ~650 Mo
 
 const API_BASE = 'https://api.okina.fr/gateway/sem/realtime';
 const DATASET_ID = 'NAOLIBORG';
@@ -447,9 +447,25 @@ async function loadModel() {
   appendDownloadMessage();
 
   try {
+    // ── Select WASM source: local first, fallback to CDN ────────────────────
+    let selectedWasm = WASM_PATHS_LOCAL;
+    console.log('[naolib] Testing local WASM availability…');
+    try {
+      const probe = await fetch('./wasm/wllama.wasm', { method: 'HEAD' });
+      if (!probe.ok || (probe.headers.get('content-type') || '').includes('text/html')) {
+        console.warn('[naolib] Local WASM not usable (status=' + probe.status + ' type=' + (probe.headers.get('content-type') || '?') + '), falling back to CDN');
+        selectedWasm = WASM_PATHS_CDN;
+      } else {
+        console.log('[naolib] Local WASM available — using ./wasm/wllama.wasm');
+      }
+    } catch (e) {
+      console.warn('[naolib] Local WASM fetch failed, falling back to CDN:', e);
+      selectedWasm = WASM_PATHS_CDN;
+    }
+
     console.log('[naolib] Creating Wllama instance…');
     statusText.textContent = 'Chargement du moteur Wasm…';
-    wllama = new Wllama(WASM_PATHS, {
+    wllama = new Wllama(selectedWasm, {
       logger: LoggerWithoutDebug,
       parallelDownloads: 3,
     });
