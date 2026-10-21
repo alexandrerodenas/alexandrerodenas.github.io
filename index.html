@@ -1,192 +1,318 @@
 <!DOCTYPE html>
-<html lang="fr" class="bg-slate-950 text-slate-200">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alexandre Rodenas | AI Agentic Systems & Craft</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .lang-btn { transition: all 0.2s; opacity: 0.4; }
-    .lang-btn.active { opacity: 1; transform: scale(1.15); }
-    .lang-btn:hover { opacity: 0.8; }
-    .icon-sm { width: 20px; height: 20px; }
-
-    /* Pulse animation for live status */
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
-      50% { opacity: 0.6; transform: scale(1.2); box-shadow: 0 0 0 6px rgba(74,222,128,0); }
-    }
-    .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
-
-    /* Loading spinner */
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { animation: spin 1s linear infinite; }
-
-    /* Fade-in for loaded content */
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in { animation: fade-in 0.5s ease-out forwards; }
-
-    /* Skeleton loading */
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-    .skeleton {
-      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s ease-in-out infinite;
-      border-radius: 6px;
-    }
-    .skeleton-text { height: 14px; margin-bottom: 8px; }
-    .skeleton-title { height: 20px; width: 60%; margin-bottom: 12px; }
-    .skeleton-badge { height: 18px; width: 90px; border-radius: 9999px; }
-  </style>
+  <title>Alexandre Rodenas — Ingénieur logiciel</title>
+  <meta name="description" content="Alexandre Rodenas, ingénieur logiciel et architecte de systèmes agentiques. Pixo, Logigramme, applications Android et serveurs MCP." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
-<body class="min-h-screen">
+<body>
 
-<nav class="max-w-5xl mx-auto p-6 flex justify-between items-center">
-  <h1 class="text-xl font-bold tracking-tighter text-white">AR.</h1>
-  <div class="flex items-center gap-5">
-    <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-full px-2 py-1">
-      <button id="btn-fr" class="lang-btn active text-sm" onclick="switchLang('fr')" title="Français">🇫🇷</button>
-      <button id="btn-en" class="lang-btn text-sm" onclick="switchLang('en')" title="English">🇬🇧</button>
+<!-- Icônes réutilisables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 6.75A2.25 2.25 0 015.25 4.5h13.5A2.25 2.25 0 0121 6.75v10.5a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 17.25V6.75zm0 0l9 6 9-6"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3.75v12m0 0l-4.5-4.5M12 15.75l4.5-4.5M4.5 19.5h15"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5H19.5V10.5M19.5 4.5L10.5 13.5M18 14.25v4.5A1.5 1.5 0 0116.5 20.25h-11A1.5 1.5 0 014 18.75v-11A1.5 1.5 0 015.5 6.25H10"/></symbol>
+  <symbol id="i-android" viewBox="0 0 24 24"><path fill="currentColor" d="M17.6 9.48l1.84-3.18a.38.38 0 00-.66-.38l-1.86 3.22a11.4 11.4 0 00-9.84 0L5.22 5.92a.38.38 0 00-.66.38L6.4 9.48A10.8 10.8 0 001 18h22a10.8 10.8 0 00-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></symbol>
+</svg>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#top" class="brand">A<span>.</span>R</a>
+    <div class="nav-links">
+      <a href="#projets"><span class="lang-fr">Projets</span><span class="lang-en hidden">Projects</span></a>
+      <a href="#apk"><span class="lang-fr">Applications</span><span class="lang-en hidden">Apps</span></a>
+      <a href="#mcp">MCP</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#contact">Contact</a>
     </div>
-    <a href="https://github.com/alexandrerodenas" class="text-slate-300 hover:text-amber-400 transition" aria-label="GitHub">
-      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-    </a>
-    <a href="https://www.linkedin.com/in/rodenasalexandre" class="text-slate-300 hover:text-amber-400 transition" aria-label="LinkedIn">
-      <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-    </a>
-    <a href="mailto:rodenas.alexandre@gmail.com" class="text-slate-300 hover:text-amber-400 transition" aria-label="Email">
-      <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
-    </a>
+    <div class="nav-tools">
+      <div class="lang" role="group" aria-label="Langue">
+        <button id="btn-fr" class="active" onclick="switchLang('fr')">FR</button>
+        <button id="btn-en" onclick="switchLang('en')">EN</button>
+      </div>
+      <a class="icon-link" href="https://github.com/alexandrerodenas" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+      <a class="icon-link" href="https://www.linkedin.com/in/rodenasalexandre" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+    </div>
   </div>
 </nav>
 
-<main class="max-w-4xl mx-auto px-6 py-12">
-  <section class="mb-20">
-    <h2 class="text-5xl font-bold text-white mb-6 tracking-tight">
-      <span class="lang-fr">Ingénieur Software & Architecte de Systèmes Agentic.</span>
-      <span class="lang-en hidden">Software Engineer & Agentic Systems Architect.</span>
-    </h2>
-    <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
-      <span class="lang-fr">Je conçois des workflows IA autonomes et des systèmes web robustes. Expert dans la transformation de besoins complexes en codebases élégants et maintenables, avec un focus sur le TDD et l'orchestration agentic moderne.</span>
-      <span class="lang-en hidden">I design autonomous AI workflows and robust web systems. Expert at turning complex requirements into elegant, maintainable codebases with a focus on TDD and modern agentic orchestration.</span>
-    </p>
+<main id="top">
+
+  <!-- ═════════ Présentation ═════════ -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Alexandre Rodenas</p>
+      <h1 class="display">
+        <span class="lang-fr">Ingénieur logiciel &amp;<br>architecte de systèmes <em>agentiques</em>.</span>
+        <span class="lang-en hidden">Software engineer &amp;<br><em>agentic</em> systems architect.</span>
+      </h1>
+      <p class="lead">
+        <span class="lang-fr">Je conçois des workflows IA autonomes, des applications web et mobiles soignées, et des codebases pensées pour durer — avec le TDD et la Clean Architecture comme fil conducteur.</span>
+        <span class="lang-en hidden">I design autonomous AI workflows, polished web and mobile apps, and codebases built to last — guided by TDD and Clean Architecture.</span>
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#projets"><span class="lang-fr">Découvrir mes projets</span><span class="lang-en hidden">See my work</span></a>
+        <a class="btn" href="#contact"><span class="lang-fr">Me contacter</span><span class="lang-en hidden">Get in touch</span></a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>Pixo</strong><span class="lang-fr">IA locale pour vos photos</span><span class="lang-en hidden">Local AI for your photos</span></div>
+        <div><strong>Logigramme</strong><span class="lang-fr">Jeu de logique Android</span><span class="lang-en hidden">Android logic game</span></div>
+        <div><strong>MCP</strong><span class="lang-fr">Serveurs pour agents IA</span><span class="lang-en hidden">Servers for AI agents</span></div>
+      </div>
+    </div>
   </section>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <div class="md:col-span-2 mb-8">
-      <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-6">
-        <span class="lang-fr">Projets Phares</span>
-        <span class="lang-en hidden">Featured Projects</span>
-      </h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <a href="https://pixo-omega.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
-          <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Pixo</h4>
-          <p class="text-slate-400 text-sm">
-            <span class="lang-fr">IA locale pour l'organisation de photos privées.</span>
-            <span class="lang-en hidden">Local AI for organizing private photos.</span>
+  <!-- ═════════ Projets phares ═════════ -->
+  <section id="projets">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="lang-fr">Projets phares</span><span class="lang-en hidden">Featured work</span></p>
+          <h2 class="section-title"><span class="lang-fr">Deux projets, une même exigence.</span><span class="lang-en hidden">Two projects, one standard.</span></h2>
+        </div>
+      </div>
+
+      <!-- Pixo -->
+      <article class="feature">
+        <div class="feature-visual">
+          <span class="tag">Web app</span>
+          <img src="assets/img/pixo.png" alt="Logo de Pixo" width="200" height="200" />
+        </div>
+        <div>
+          <span class="feature-num">01</span>
+          <h3>Pixo</h3>
+          <p class="tagline">
+            <span class="lang-fr">Organisez vos photos grâce à l'IA, directement dans le navigateur. Aucun envoi, aucun serveur : vos photos ne quittent jamais votre machine.</span>
+            <span class="lang-en hidden">Organize your photos with AI, right in your browser. No uploads, no servers: your photos never leave your machine.</span>
           </p>
-        </a>
-        <a href="https://roadtrip-quiz-omega.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
-          <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Roadtrip Quiz</h4>
-          <p class="text-slate-400 text-sm">
-            <span class="lang-fr">Quiz interactif avec sélection dynamique de modèles IA.</span>
-            <span class="lang-en hidden">Interactive quiz with dynamic AI model selection.</span>
+          <ul class="points">
+            <li><span class="lang-fr">Classification de scènes et détection d'objets en local (MobileNet, COCO-SSD) accélérées par WebGPU.</span><span class="lang-en hidden">Local scene classification and object detection (MobileNet, COCO-SSD), WebGPU-accelerated.</span></li>
+            <li><span class="lang-fr">Détection du flou et des doublons, avec sélection automatique de la meilleure version.</span><span class="lang-en hidden">Blur and duplicate detection, automatically keeping the best shot.</span></li>
+            <li><span class="lang-fr">Règles de tri personnalisées et profils importables / exportables.</span><span class="lang-en hidden">Custom sorting rules and importable / exportable profiles.</span></li>
+          </ul>
+          <div class="stack">
+            <span class="chip">React 19</span><span class="chip">TypeScript</span><span class="chip">TensorFlow.js</span><span class="chip">WebGPU</span><span class="chip">Vite</span>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://pixo-omega.vercel.app"><span class="lang-fr">Essayer Pixo</span><span class="lang-en hidden">Try Pixo</span> <svg class="icon"><use href="#i-external"/></svg></a>
+            <a class="btn" href="https://github.com/alexandrerodenas/Pixo"><svg class="icon"><use href="#i-github"/></svg> Code source</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Logigramme -->
+      <article class="feature reverse">
+        <div class="feature-visual">
+          <span class="tag">Android</span>
+          <img src="assets/img/logigramme.svg" alt="Icône de Logigramme" width="200" height="200" />
+        </div>
+        <div>
+          <span class="feature-num">02</span>
+          <h3>Logigramme</h3>
+          <p class="tagline">
+            <span class="lang-fr">Un jeu d'énigmes de logique à grille pour Android, entièrement hors ligne. Chaque grille est générée sur le téléphone et sa solution unique est vérifiée par un solveur.</span>
+            <span class="lang-en hidden">A grid logic puzzle game for Android, fully offline. Every grid is generated on the phone and its unique solution is checked by a solver.</span>
           </p>
+          <ul class="points">
+            <li><span class="lang-fr">Un parcours de dix quartiers de huit niveaux, avec grandes énigmes, défis du jour et 22 trophées.</span><span class="lang-en hidden">A journey through ten districts of eight levels each, with grand puzzles, daily challenges and 22 trophies.</span></li>
+            <li><span class="lang-fr">Niveaux spéciaux : sans faute, contre-la-montre, indices scellés.</span><span class="lang-en hidden">Special levels: flawless, time trial, sealed clues.</span></li>
+            <li><span class="lang-fr">Sans serveur ni permission Internet ; sons et musique synthétisés sur l'appareil.</span><span class="lang-en hidden">No server, no Internet permission; sound and music synthesized on device.</span></li>
+          </ul>
+          <div class="stack">
+            <span class="chip">Godot 4.3</span><span class="chip">GDScript</span><span class="chip">Android</span><span class="chip"><span class="lang-fr">Solveur</span><span class="lang-en hidden">Solver</span></span>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/alexandrerodenas/logigramme-/raw/main/apk/logigramme-2.6.0.apk"><svg class="icon"><use href="#i-download"/></svg> <span class="lang-fr">Télécharger l'APK</span><span class="lang-en hidden">Download APK</span></a>
+            <a class="btn" href="https://github.com/alexandrerodenas/logigramme-"><svg class="icon"><use href="#i-github"/></svg> Code source</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═════════ Applications Android (APK) ═════════ -->
+  <section id="apk">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="lang-fr">Applications Android</span><span class="lang-en hidden">Android apps</span></p>
+          <h2 class="section-title"><span class="lang-fr">Mes créations, à installer.</span><span class="lang-en hidden">My creations, ready to install.</span></h2>
+          <p><span class="lang-fr">Des applications que je développe et publie en APK, téléchargeables directement depuis votre téléphone.</span><span class="lang-en hidden">Apps I build and ship as APKs, downloadable straight from your phone.</span></p>
+        </div>
+      </div>
+
+      <div class="apk-list">
+        <!-- Pour ajouter une application : dupliquer ce bloc .apk et adapter icône, textes, version et lien. -->
+        <article class="apk">
+          <img class="apk-icon" src="assets/img/logigramme.svg" alt="" width="88" height="88" />
+          <div>
+            <h4>Logigramme</h4>
+            <p>
+              <span class="lang-fr">Énigmes de logique à grille, générées sur l'appareil avec solution unique garantie. Jouable hors ligne.</span>
+              <span class="lang-en hidden">Grid logic puzzles generated on device with a guaranteed unique solution. Plays offline.</span>
+            </p>
+            <div class="apk-meta">
+              <span>Version <b>2.6.0</b></span>
+              <span><span class="lang-fr">Taille</span><span class="lang-en hidden">Size</span> <b>48 Mo</b></span>
+              <span><span class="lang-fr">Catégorie</span><span class="lang-en hidden">Category</span> <b><span class="lang-fr">Jeu de réflexion</span><span class="lang-en hidden">Puzzle game</span></b></span>
+              <span><span class="lang-fr">Permissions</span><span class="lang-en hidden">Permissions</span> <b><span class="lang-fr">aucun accès Internet</span><span class="lang-en hidden">no Internet access</span></b></span>
+            </div>
+          </div>
+          <div class="apk-cta">
+            <a class="btn btn-primary btn-small" href="https://github.com/alexandrerodenas/logigramme-/raw/main/apk/logigramme-2.6.0.apk"><svg class="icon"><use href="#i-download"/></svg> APK</a>
+            <a class="btn btn-small" href="https://github.com/alexandrerodenas/logigramme-"><svg class="icon"><use href="#i-github"/></svg> Source</a>
+          </div>
+        </article>
+
+        <!-- À COMPLÉTER : emplacement réservé pour la prochaine application -->
+        <article class="apk placeholder">
+          <div class="apk-icon" aria-hidden="true">+</div>
+          <div>
+            <h4><span class="lang-fr">Prochaine application</span><span class="lang-en hidden">Next app</span></h4>
+            <p>
+              <span class="lang-fr">[À compléter : nom, description courte, version, taille et lien de téléchargement de l'APK.]</span>
+              <span class="lang-en hidden">[To be completed: name, short description, version, size and APK download link.]</span>
+            </p>
+            <div class="apk-meta">
+              <span>Version <b>—</b></span>
+              <span><span class="lang-fr">Taille</span><span class="lang-en hidden">Size</span> <b>—</b></span>
+            </div>
+          </div>
+          <div class="apk-cta">
+            <span class="btn btn-small"><svg class="icon"><use href="#i-android"/></svg> <span class="lang-fr">Bientôt</span><span class="lang-en hidden">Soon</span></span>
+          </div>
+        </article>
+      </div>
+
+      <div class="install">
+        <div><span class="lang-fr">Ouvrez le lien de téléchargement depuis votre téléphone Android.</span><span class="lang-en hidden">Open the download link on your Android phone.</span></div>
+        <div><span class="lang-fr">Ouvrez le fichier APK et autorisez l'installation depuis cette source si Android le demande.</span><span class="lang-en hidden">Open the APK and allow installs from this source if Android asks.</span></div>
+        <div><span class="lang-fr">Lancez l'application. Les mises à jour s'installent par-dessus la version précédente.</span><span class="lang-en hidden">Launch the app. Updates install over the previous version.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ Autres projets ═════════ -->
+  <section id="autres">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="lang-fr">Autres réalisations</span><span class="lang-en hidden">More work</span></p>
+          <h2 class="section-title"><span class="lang-fr">Expérimentations &amp; outils.</span><span class="lang-en hidden">Experiments &amp; tools.</span></h2>
+        </div>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://roadtrip-quiz-omega.vercel.app">
+          <div class="card-top"><h4>Roadtrip Quiz</h4><span class="arrow">→</span></div>
+          <p><span class="lang-fr">Quiz interactif avec sélection dynamique de modèles IA.</span><span class="lang-en hidden">Interactive quiz with dynamic AI model selection.</span></p>
         </a>
-        <a href="https://icebreaker-quiz-liard.vercel.app" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition">
-          <h4 class="font-bold text-white mb-2 group-hover:text-amber-400">Icebreaker Quiz</h4>
-          <p class="text-slate-400 text-sm">
-            <span class="lang-fr">Application QCM collaborative pour la géographie.</span>
-            <span class="lang-en hidden">Collaborative multiple-choice app for geography.</span>
-          </p>
+        <a class="card" href="https://icebreaker-quiz-liard.vercel.app">
+          <div class="card-top"><h4>Icebreaker Quiz</h4><span class="arrow">→</span></div>
+          <p><span class="lang-fr">Application QCM collaborative autour de la géographie.</span><span class="lang-en hidden">Collaborative multiple-choice app about geography.</span></p>
         </a>
-        <a href="https://github.com/alexandrerodenas" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition flex items-center justify-center">
-          <span class="text-slate-400 text-sm font-semibold group-hover:text-amber-400">
-            <span class="lang-fr">Voir tous mes projets sur GitHub →</span>
-            <span class="lang-en hidden">See all my projects on GitHub →</span>
-          </span>
+        <a class="card" href="https://github.com/alexandrerodenas/la-clinique-du-code">
+          <div class="card-top"><h4>La Clinique du Code</h4><span class="arrow">→</span></div>
+          <p><span class="lang-fr">Diagnostic post-développement : qualité, tests, points chauds d'architecture et refactoring ciblé, pour OpenCode et GitHub Copilot.</span><span class="lang-en hidden">Post-development clinic: code quality, tests, architecture hotspots and surgical refactoring, for OpenCode and GitHub Copilot.</span></p>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="mt-20 border-t border-slate-800 pt-12">
-    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-8">
-      <span class="lang-fr">Expertise & Stack</span>
-      <span class="lang-en hidden">Expertise & Stack</span>
-    </h3>
-    <div class="flex flex-wrap gap-3">
-      <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">AI Agents (MCP/RAG)</span>
-      <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">TypeScript/Next.js</span>
-      <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">Python/LangChain</span>
-      <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">TDD/Clean Architecture</span>
-      <span class="px-3 py-1 bg-slate-900 border border-slate-800 rounded-full text-xs">Vercel/Docker/CI/CD</span>
+  <!-- ═════════ Serveurs MCP ═════════ -->
+  <section id="mcp">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="lang-fr">Serveurs MCP</span><span class="lang-en hidden">MCP servers</span></p>
+          <h2 class="section-title"><span class="lang-fr">Des outils pour les agents IA.</span><span class="lang-en hidden">Tools for AI agents.</span></h2>
+          <p><span class="lang-fr">Publiés sur PyPI — versions récupérées en temps réel.</span><span class="lang-en hidden">Published on PyPI — versions fetched live.</span></p>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card" id="card-am">
+          <div class="card-top"><h4>Agentic Memory MCP</h4><span class="version" data-pypi="agentic-memory-mcp"><span class="skeleton" style="display:inline-block;width:48px"></span></span></div>
+          <p><span class="lang-fr">Knowledge Graph persistant avec scoring pour agents IA. Provider natif Hermes Agent.</span><span class="lang-en hidden">Persistent Knowledge Graph with scoring for AI agents. Native Hermes Agent provider.</span></p>
+          <div class="card-foot">
+            <a href="https://github.com/alexandrerodenas/agentic-memory-mcp"><svg class="icon"><use href="#i-github"/></svg> GitHub</a>
+            <a href="https://pypi.org/project/agentic-memory-mcp/">PyPI</a>
+          </div>
+        </article>
+        <article class="card" id="card-nl">
+          <div class="card-top"><h4>Naolib MCP</h4><span class="version" data-pypi="naolib-mcp"><span class="skeleton" style="display:inline-block;width:48px"></span></span></div>
+          <p><span class="lang-fr">Données SIRI temps réel des transports de Nantes : horaires, véhicules, alertes.</span><span class="lang-en hidden">Real-time SIRI transit data for Nantes: schedules, vehicles, alerts.</span></p>
+          <div class="card-foot">
+            <a href="https://github.com/alexandrerodenas/naolib-mcp"><svg class="icon"><use href="#i-github"/></svg> GitHub</a>
+            <a href="https://pypi.org/project/naolib-mcp/">PyPI</a>
+            <a href="naolib.html"><span class="lang-fr">Démo interactive →</span><span class="lang-en hidden">Live demo →</span></a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-top"><h4>Hiking MCP</h4></div>
+          <p><span class="lang-fr">Serveur MCP pour assistants IA, spécialisé dans l'outdoor et la randonnée.</span><span class="lang-en hidden">MCP server for AI assistants, focused on outdoor activities and hiking.</span></p>
+          <div class="card-foot">
+            <a href="https://github.com/alexandrerodenas/hiking-mcp-server"><svg class="icon"><use href="#i-github"/></svg> GitHub</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
-  <section id="mcp" class="mt-20 border-t border-slate-800 pt-12">
-    <h3 class="text-sm font-semibold text-amber-500 uppercase tracking-widest mb-2">
-      <span class="lang-fr">Serveurs MCP</span>
-      <span class="lang-en hidden">MCP Servers</span>
-    </h3>
-    <p class="text-slate-500 text-sm mb-8">
-      <span class="lang-fr">Connectés et opérationnels — statuts vérifiés en temps réel.</span>
-      <span class="lang-en hidden">Connected and live — status verified in real time.</span>
-    </p>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="mcp-cards">
-      <!-- Agentic Memory MCP — Skeleton -->
-      <div id="card-am" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-        <div class="flex items-start justify-between mb-3">
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-badge"></div>
+  <!-- ═════════ Expertise ═════════ -->
+  <section id="expertise">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Expertise</p>
+          <h2 class="section-title"><span class="lang-fr">Ce que j'apporte.</span><span class="lang-en hidden">What I bring.</span></h2>
         </div>
-        <div class="skeleton skeleton-text" style="width:100%"></div>
-        <div class="skeleton skeleton-text" style="width:75%"></div>
-        <div class="mt-4 skeleton" style="height:16px;width:50%"></div>
       </div>
-      <!-- Naolib MCP — Skeleton -->
-      <div id="card-nl" class="bg-slate-900 border border-slate-800 p-6 rounded-2xl">
-        <div class="flex items-start justify-between mb-3">
-          <div class="skeleton skeleton-title"></div>
-          <div class="skeleton skeleton-badge"></div>
+      <div class="skills">
+        <div>
+          <h4><span class="lang-fr">Agents IA</span><span class="lang-en hidden">AI agents</span></h4>
+          <p>MCP, RAG, LangChain, Spring AI, <span class="lang-fr">IA embarquée dans le navigateur</span><span class="lang-en hidden">in-browser AI</span>.</p>
         </div>
-        <div class="skeleton skeleton-text" style="width:100%"></div>
-        <div class="skeleton skeleton-text" style="width:75%"></div>
-        <div class="mt-4 skeleton" style="height:16px;width:50%"></div>
+        <div>
+          <h4>Web</h4>
+          <p>TypeScript, React, Next.js, Vite, TensorFlow.js.</p>
+        </div>
+        <div>
+          <h4><span class="lang-fr">Mobile &amp; jeu</span><span class="lang-en hidden">Mobile &amp; games</span></h4>
+          <p>Godot 4, GDScript, <span class="lang-fr">export et signature d'APK Android</span><span class="lang-en hidden">Android APK export and signing</span>.</p>
+        </div>
+        <div>
+          <h4>Craft</h4>
+          <p>TDD, Clean Architecture, DDD, CI/CD, Docker, Vercel.</p>
+        </div>
       </div>
     </div>
-    <!-- Hiking MCP — static card below the live ones -->
-    <div class="mt-4">
-      <a href="https://github.com/alexandrerodenas/hiking-mcp-server" class="group bg-slate-900 border border-slate-800 p-6 rounded-2xl hover:border-amber-500/50 transition block">
-        <div class="flex items-start justify-between mb-3">
-          <h4 class="font-bold text-white group-hover:text-amber-400 transition">Hiking MCP</h4>
-        </div>
-        <p class="text-slate-400 text-sm mb-4">
-          <span class="lang-fr">Serveur MCP pour assistants IA spécialisé dans l'outdoor et les randonnées.</span>
-          <span class="lang-en hidden">MCP server for AI assistants focused on outdoor activities and hiking.</span>
-        </p>
-        <div class="flex gap-3 text-sm flex-wrap">
-          <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
-            <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-            GitHub
-          </span>
-        </div>
-      </a>
+  </section>
+
+  <!-- ═════════ Contact ═════════ -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title"><span class="lang-fr">Un projet, une idée, une question ? Parlons-en.</span><span class="lang-en hidden">A project, an idea, a question? Let's talk.</span></h2>
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:rodenas.alexandre@gmail.com"><svg class="icon"><use href="#i-mail"/></svg> rodenas.alexandre@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/rodenasalexandre"><svg class="icon"><use href="#i-linkedin"/></svg> LinkedIn</a>
+        <a class="btn" href="https://github.com/alexandrerodenas"><svg class="icon"><use href="#i-github"/></svg> GitHub</a>
+      </div>
     </div>
   </section>
 </main>
 
-<footer class="max-w-5xl mx-auto p-6 text-center text-slate-600 text-sm">
-  © 2026 Alexandre Rodenas
+<footer>
+  <div class="wrap">
+    <span>© 2026 Alexandre Rodenas</span>
+    <a href="references.html"><span class="lang-fr">Ressources &amp; lectures</span><span class="lang-en hidden">Resources &amp; reading</span></a>
+  </div>
 </footer>
 
 <script>
@@ -196,146 +322,26 @@
     document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch {}
   }
 
-  // ─── Live status loaders ─────────────────────────────
-  async function fetchJSON(url) {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(r.status);
-    return r.json();
-  }
-
-  async function fetchText(url) {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(r.status);
-    return r.text();
-  }
-
-  function renderCard(container, html) {
-    container.innerHTML = html;
-    container.classList.add('fade-in');
-  }
-
-  function renderError(container, name) {
-    container.classList.remove('bg-slate-900', 'border-slate-800');
-    container.classList.add('bg-red-950/30', 'border-red-900/50');
-    container.innerHTML = `
-      <div class="flex items-center gap-3">
-        <span class="w-2 h-2 rounded-full bg-red-500"></span>
-        <span class="text-red-400 text-sm">
-          <span class="lang-fr">Impossible de joindre ${name}</span>
-          <span class="lang-en hidden">Could not reach ${name}</span>
-        </span>
-      </div>`;
-  }
-
-  // Agentic Memory — fetch PyPI version
-  async function loadAgenticMemory() {
-    const c = document.getElementById('card-am');
+  // Versions PyPI des serveurs MCP, récupérées en direct
+  async function loadPypiVersion(el) {
     try {
-      const data = await fetchJSON('https://pypi.org/pypi/agentic-memory-mcp/json');
-      const version = data.info.version;
-
-      renderCard(c, `
-        <a href="https://github.com/alexandrerodenas/agentic-memory-mcp" class="group block">
-          <div class="flex items-start justify-between mb-3">
-            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Agentic Memory MCP</h4>
-            <span class="text-slate-600 text-xs font-medium">v${version}</span>
-          </div>
-          <p class="text-slate-400 text-sm mb-4">
-            <span class="lang-fr">Knowledge Graph persistant avec scoring pour agents IA. Provider natif Hermes Agent.</span>
-            <span class="lang-en hidden">Persistent Knowledge Graph with scoring for AI agents. Native Hermes Agent provider.</span>
-          </p>
-          <div class="flex gap-3 text-sm flex-wrap">
-            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub
-            </span>
-            <a href="https://pypi.org/project/agentic-memory-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
-              PyPI
-            </a>
-          </div>
-        </a>
-      `);
+      const r = await fetch(`https://pypi.org/pypi/${el.dataset.pypi}/json`);
+      if (!r.ok) throw new Error(r.status);
+      const data = await r.json();
+      el.innerHTML = `<span class="status fade-in"><span class="dot"></span>v${data.info.version}</span>`;
     } catch {
-      renderError(c, 'Agentic Memory');
+      el.innerHTML = `<span class="status"><span class="dot off"></span>—</span>`;
     }
   }
 
-  // Naolib — fetch PyPI version + SIRI status
-  async function loadNaolib() {
-    const c = document.getElementById('card-nl');
-    let version = '';
-    try {
-      const pypi = await fetchJSON('https://pypi.org/pypi/naolib-mcp/json');
-      version = pypi.info.version;
-    } catch { /* version only, optional */ }
-
-    try {
-      await fetchJSON('https://api.staging.okina.fr/gateway/sem/realtime/anshar/services?xml=<CheckStatusRequest%20xmlns=%22http://www.siri.org.uk/siri%22><RequestTimestamp>2025-01-01T00:00:00Z</RequestTimestamp></CheckStatusRequest>');
-
-      renderCard(c, `
-        <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group block">
-          <div class="flex items-start justify-between mb-3">
-            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
-            <span class="text-slate-600 text-xs font-medium">${version ? 'v' + version : ''}</span>
-          </div>
-          <p class="text-slate-400 text-sm mb-4">
-            <span class="lang-fr">Données SIRI temps réel des transports Nantes (Naolib). Horaires, véhicules, alertes.</span>
-            <span class="lang-en hidden">Real-time SIRI transit data for Nantes (Naolib). Schedules, vehicles, alerts.</span>
-          </p>
-          <div class="flex gap-3 text-sm flex-wrap">
-            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub
-            </span>
-            <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
-              PyPI
-            </a>
-            <a href="naolib.html" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.43 1.43a2.25 2.25 0 000 3.182l.393.393a2.25 2.25 0 003.182 0L19 14.5m0 0l1.43 1.43a2.25 2.25 0 010 3.182l-.393.393a2.25 2.25 0 01-3.182 0L19 14.5M14.25 14.5v-5.714a2.25 2.25 0 01.659-1.591L19 3.104"/></svg>
-              <span class="lang-fr">Démo</span><span class="lang-en hidden">Demo</span>
-            </a>
-          </div>
-        </a>
-      `);
-    } catch {
-      // Fallback: show card without live data
-      renderCard(c, `
-        <a href="https://github.com/alexandrerodenas/naolib-mcp" class="group block">
-          <div class="flex items-start justify-between mb-3">
-            <h4 class="font-bold text-white group-hover:text-amber-400 transition">Naolib MCP</h4>
-            <span class="text-slate-600 text-xs font-medium">${version ? 'v' + version : ''}</span>
-          </div>
-          <p class="text-slate-400 text-sm mb-4">
-            <span class="lang-fr">Données SIRI temps réel des transports Nantes (Naolib). Horaires, véhicules, alertes.</span>
-            <span class="lang-en hidden">Real-time SIRI transit data for Nantes (Naolib). Schedules, vehicles, alerts.</span>
-          </p>
-          <div class="flex gap-3 text-sm flex-wrap">
-            <span class="text-slate-500 group-hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-              GitHub
-            </span>
-            <a href="https://pypi.org/project/naolib-mcp/" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="currentColor" viewBox="0 0 24 24"><path d="M19.58 2H4.42c-1.23 0-2.22 1-2.22 2.22v15.56c0 1.23.99 2.22 2.22 2.22h15.16c1.23 0 2.22-1 2.22-2.22V4.22C21.8 3 20.81 2 19.58 2zM12 20a2 2 0 110-4 2 2 0 010 4zm-2.7-6h-.6V7.5a.6.6 0 01.6-.6h5.4a.6.6 0 01.6.6v6.5h-.6v-.7a.9.9 0 01-.9.9H10.2a.9.9 0 01-.9-.9v-.7z"/></svg>
-              PyPI
-            </a>
-            <a href="naolib.html" class="text-slate-500 hover:text-amber-400 transition flex items-center gap-1">
-              <svg class="icon-sm" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714a2.25 2.25 0 00.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M5 14.5l-1.43 1.43a2.25 2.25 0 000 3.182l.393.393a2.25 2.25 0 003.182 0L19 14.5m0 0l1.43 1.43a2.25 2.25 0 010 3.182l-.393.393a2.25 2.25 0 01-3.182 0L19 14.5M14.25 14.5v-5.714a2.25 2.25 0 01.659-1.591L19 3.104"/></svg>
-              <span class="lang-fr">Démo</span><span class="lang-en hidden">Demo</span>
-            </a>
-          </div>
-        </a>
-      `);
-    }
-  }
-
-  // Run both on load
   document.addEventListener('DOMContentLoaded', () => {
-    loadAgenticMemory();
-    loadNaolib();
+    let saved = null;
+    try { saved = localStorage.getItem('lang'); } catch {}
+    if (saved === 'en') switchLang('en');
+    document.querySelectorAll('[data-pypi]').forEach(loadPypiVersion);
   });
 </script>
 </body>
