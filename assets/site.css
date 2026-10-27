@@ -254,3 +254,29 @@ footer a:hover { color: var(--ink); }
 .prose a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
 .prose a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .prose section { padding: 0; border: 0; }
+
+/* ─── Projet phare : La Clinique du Code ─── */
+.feature.flagship .feature-num { color: var(--accent); }
+.feature > * { min-width: 0; }
+.feature code, .clinic-team code { font-family: var(--mono); font-size: 0.85em; }
+.clinic-visual { padding: 56px 28px 28px; }
+.clinic-team { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 380px; display: grid; gap: 10px; }
+.clinic-team li {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 12px; align-items: center;
+  padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper);
+  font-size: 0.85rem; color: var(--ink-soft);
+}
+.clinic-team code { color: var(--muted); }
+.clinic-team .mode {
+  font-size: 0.68rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line-strong); color: var(--muted);
+}
+.clinic-team li.operates { border-color: var(--accent); }
+.clinic-team li.operates .mode { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.install-cmd {
+  margin: 0 0 28px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--ink-soft); font-size: 0.78rem; line-height: 1.7;
+  overflow-x: auto; white-space: pre;
+}
+@media (max-width: 820px) { .clinic-visual { aspect-ratio: auto; } }
+@media (max-width: 420px) { .clinic-team li { grid-template-columns: 1fr auto; } .clinic-team code { display: none; } }
