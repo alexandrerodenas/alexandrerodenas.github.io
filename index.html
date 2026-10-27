@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css" />
+  <script src="assets/analytics.js" defer></script>
 </head>
 <body>
 
@@ -82,7 +83,7 @@
       <!-- Pixo -->
       <article class="feature">
         <div class="feature-visual">
-          <span class="tag">Web app</span>
+          <span class="tag">Web · Android</span>
           <img src="assets/img/pixo.png" alt="Logo de Pixo" width="200" height="200" />
         </div>
         <div>
@@ -102,6 +103,7 @@
           </div>
           <div class="actions">
             <a class="btn btn-primary" href="https://pixo-omega.vercel.app"><span class="lang-fr">Essayer Pixo</span><span class="lang-en hidden">Try Pixo</span> <svg class="icon"><use href="#i-external"/></svg></a>
+            <a class="btn" href="https://github.com/alexandrerodenas/Pixo/releases/download/android-debug/pixo-debug.apk"><svg class="icon"><use href="#i-download"/></svg> <span class="lang-fr">Télécharger l'APK</span><span class="lang-en hidden">Download APK</span></a>
             <a class="btn" href="https://github.com/alexandrerodenas/Pixo"><svg class="icon"><use href="#i-github"/></svg> Code source</a>
           </div>
         </div>
@@ -171,22 +173,24 @@
           </div>
         </article>
 
-        <!-- À COMPLÉTER : emplacement réservé pour la prochaine application -->
-        <article class="apk placeholder">
-          <div class="apk-icon" aria-hidden="true">+</div>
+        <article class="apk">
+          <img class="apk-icon" src="assets/img/pixo.png" alt="" width="88" height="88" />
           <div>
-            <h4><span class="lang-fr">Prochaine application</span><span class="lang-en hidden">Next app</span></h4>
+            <h4>Pixo</h4>
             <p>
-              <span class="lang-fr">[À compléter : nom, description courte, version, taille et lien de téléchargement de l'APK.]</span>
-              <span class="lang-en hidden">[To be completed: name, short description, version, size and APK download link.]</span>
+              <span class="lang-fr">Tri et nettoyage de vos photos par IA, en local sur le téléphone : scènes, objets, flou et doublons.</span>
+              <span class="lang-en hidden">AI sorting and cleanup of your photos, locally on the phone: scenes, objects, blur and duplicates.</span>
             </p>
             <div class="apk-meta">
-              <span>Version <b>—</b></span>
-              <span><span class="lang-fr">Taille</span><span class="lang-en hidden">Size</span> <b>—</b></span>
+              <span>Version <b>1.17.0</b></span>
+              <span><span class="lang-fr">Taille</span><span class="lang-en hidden">Size</span> <b>7,9 Mo</b></span>
+              <span><span class="lang-fr">Catégorie</span><span class="lang-en hidden">Category</span> <b>Photo</b></span>
+              <span>Build <b><span class="lang-fr">de test (debug)</span><span class="lang-en hidden">test (debug)</span></b></span>
             </div>
           </div>
           <div class="apk-cta">
-            <span class="btn btn-small"><svg class="icon"><use href="#i-android"/></svg> <span class="lang-fr">Bientôt</span><span class="lang-en hidden">Soon</span></span>
+            <a class="btn btn-primary btn-small" href="https://github.com/alexandrerodenas/Pixo/releases/download/android-debug/pixo-debug.apk"><svg class="icon"><use href="#i-download"/></svg> APK</a>
+            <a class="btn btn-small" href="https://github.com/alexandrerodenas/Pixo"><svg class="icon"><use href="#i-github"/></svg> Source</a>
           </div>
         </article>
       </div>
