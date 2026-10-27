@@ -3,7 +3,7 @@
 // Pour activer : créer un compte gratuit sur https://www.goatcounter.com,
 // puis remplacer la valeur ci-dessous par le code choisi (ex. 'alexandrerodenas').
 // Tant que le code est vide, rien n'est chargé ni envoyé.
-const GOATCOUNTER_CODE = '';
+const GOATCOUNTER_CODE = 'rodenasalexandre';
 
 (() => {
   if (!GOATCOUNTER_CODE) return;
